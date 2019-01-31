@@ -1,6 +1,7 @@
 import mongoose from 'mongoose'
 
-const Schema = mongoose.Schema
+const Schema = mongoose.Schema;
+const ObjectId = mongoose.Schema.Types.ObjectId;
 
 export const StudentSchema = new Schema({
     username: {
@@ -9,7 +10,7 @@ export const StudentSchema = new Schema({
         required: true
     },
     password: String
-})
+});
 
 export const ContractSchema = new Schema({
     number: {
@@ -32,20 +33,20 @@ export const ContractSchema = new Schema({
     hoursPerWeek: {
         type: Number,
         required: true
-    }
-})
-
-export const WorkdaySchema = new Schema({
-    date: {
-        type: Date,
-        required: true
     },
-    time: [{
-        startingTime: String,
-        endingTime: String,
+    workdays: [{
+        date: {
+            type: Date,
+            required: true
+        },
+        time: [{
+            startingTime: String,
+            endingTime: String,
+        }],
+        timeWorked: Number
     }],
-    numberOfContract: {
-        type: String,
-        required: true
-    }
-})
+    studentId:{
+        type: ObjectId,
+        required: true,
+    },
+});
