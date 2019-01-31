@@ -13,12 +13,14 @@ const schema = buildSchema(`
     startingDay: Date!,
     endingDay: Date!,
     hoursPerWeek: Number!,
+    workdays: [WorkdayInput],
+    studentId: ID!,
   }
   input WorkdayInput {
     id: String!,
     date: Date!,
     time: [TimeInput],
-    numberOfContract: String!,
+    timeWorked: Number,
   }
   input TimeInput {
     startingTime: String!,
@@ -36,12 +38,18 @@ const schema = buildSchema(`
     startingDay: Date!,
     endingDay: Date!,
     hoursPerWeek: Number!,
+    workdays: [Workday],
+    studentId: ID!,
   }
   type Workday {
     id: ID!,
     date: Date!,
-    time: [TimeInput],
-    numberOfContract: String!,
+    time: [Time],
+    timeWorked: Number,
+  }
+  type Time {
+    startingTime: String!,
+    endingTime: String!,
   }
 `)
 

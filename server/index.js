@@ -64,40 +64,8 @@ app.get('/*', (req, res) => {
         username: req.isAuthenticated() ? req.user.username : ''
     }))
 })
-import {getContractById, getActiveContractByStudent, updateContract, deleteContract, addWorkday, updateWorkday, addTime, addContract} from "./mongoose/api/contract";
+
 connect();
-/*const contract = {
-    number: "001",
-    status: "Active",
-    startingDay: "2017-01-01",
-    endingDay: "2020-01-01",
-    hoursPerWeek: 20,
-    workdays: [{
-        date: "2018-05-05",
-        time: [{
-            startingTime: "15:43",
-            endingTime: "17:29",
-        }],
-        timeWorked: 25
-    }],
-    studentId: mongoose.Types.ObjectId("5c51ecb252bf67279cb1f84b")
-};*/
-const workday = {
-    date: "22018-05-05 00:00:00.000Z",
-    time: [{
-        startingTime: "15:43",
-        endingTime: "15:43",
-    }],
-    timeWorked: 125
-}
-const time = {
-    startingTime: "00:43",
-    endingTime: "02:43",
-}
-addTime("5c51f030a927c61904856b62", "5c51f48783c94a2760b1384f", time)
-   /* .then((contract) => {
-        console.log(contract);
-    });*/
 
 app.listen(app.get('port'), () => {
     console.log('PortalForStudents server is listening on port', app.get('port'))

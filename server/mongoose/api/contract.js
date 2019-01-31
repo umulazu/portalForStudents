@@ -1,5 +1,6 @@
 import mongoose from 'mongoose'
 import { ContractSchema } from '../schemas'
+import getDiffBetweenTime from '../../utilities/getDiffBetweenTime'
 
 const Contract = mongoose.model('Contract', ContractSchema, 'contracts')
 
@@ -39,14 +40,18 @@ export const updateWorkday = (contractId, workdayId, workday) => {
 };
 
 export const getWorkday = (contractId, workdayId) => {
-    return Contract.findOne({_id: contractId, workdays: {$elemMatch: {_id: mongoose.Types.ObjectId(workdayId)}}}).exec()
-        .then((contract) => { })
+    return Contract.findOne({_id: contractId}).exec()
+        .then((contract) => {
+            return contract.workdays.filter((workday) => workday._id.toString() === workdayId)[0];
+        })
 };
 
 export const addTime = (contractId, workdayId, time) => {
-    const diff = 5;
-    //getWorkday(contractId, workdayId)
-        //.then((workday) => {
-            return Contract.updateOne({_id: contractId, 'workdays._id': workdayId}, {$set: {"workdays.$.timeWorked": diff}, $push: {"workdays.$.time": time}}).exec()
-        //});
+    const diff = getDiffBetweenTime(time);
+    getWorkday(contractId, workdayId)
+        .then((workday) => {
+            console.log(workday);
+            return Contract.updateOne({_id: contractId, 'workdays._id': workdayId}, {$set: {"workdays.$.timeWorked": workday.timeWorked + diff}, $push: {"workdays.$.time": time}}).exec()
+        });
 };
+
