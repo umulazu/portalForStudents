@@ -51,6 +51,22 @@ const schema = buildSchema(`
     startingTime: String!,
     endingTime: String!,
   }
+  type Query {
+    student(id: String!): Student,
+    contract(id: String!): Contract,
+    activeContract(studentId: String!): Contract,
+    workday(contractId: String!, workdayId: String!): Workday,
+  }
+  type Mutation {
+    addStudent(student: StudentInput!): String
+    deleteStudent(studentId: ID!): Boolean 
+    addContract(contract: ContractInput!): String
+    deleteContract(contractId: ID!): Boolean    
+    updateContract(contract: ContractInput!): Boolean    
+    addWorkday(contractId: String!, workday: WorkdayInput!): String
+    updateWorkday(contractId: String!, workdayId: String!, workday: WorkdayInput!): Boolean
+    addTime(contractId: String!, workdayId: String!, time: TimeInput!): Number
+  }
 `)
 
 export default schema

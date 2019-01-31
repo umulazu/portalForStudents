@@ -15,6 +15,9 @@ export const getActiveContractByStudent = (studentId) => {
 
 export const addContract = (newContract) => {
     return Contract.create(newContract)
+        .then(contract => {
+            return contract._id.toString();
+        });
 };
 
 export const updateContract = (contractId, contractNewState) => {
@@ -23,6 +26,9 @@ export const updateContract = (contractId, contractNewState) => {
             ...contractNewState
         }
     }).exec()
+        .then(() => {
+            return contractId;
+        });
 };
 
 export const deleteContract = (contractId) => {
@@ -30,13 +36,21 @@ export const deleteContract = (contractId) => {
 };
 
 export const addWorkday = (contractId, workday) => {
+    const id = mongoose.Types.ObjectId();
+    workday._id = id;
     return Contract.updateOne({ _id: contractId }, {
         $push:  {workdays: workday}
-    }).exec();
+    }).exec()
+        .then(() => {
+            return id.toString();
+        });
 };
 
 export const updateWorkday = (contractId, workdayId, workday) => {
-    return Contract.updateOne({_id: contractId, 'workdays._id': workdayId}, {$set: {'workdays.$': workday}}).exec();
+    return Contract.updateOne({_id: contractId, 'workdays._id': workdayId}, {$set: {'workdays.$': workday}}).exec()
+        .then(() => {
+            return workdayId;
+        });
 };
 
 export const getWorkday = (contractId, workdayId) => {
@@ -50,8 +64,10 @@ export const addTime = (contractId, workdayId, time) => {
     const diff = getDiffBetweenTime(time);
     getWorkday(contractId, workdayId)
         .then((workday) => {
-            console.log(workday);
-            return Contract.updateOne({_id: contractId, 'workdays._id': workdayId}, {$set: {"workdays.$.timeWorked": workday.timeWorked + diff}, $push: {"workdays.$.time": time}}).exec()
+            return Contract.updateOne({_id: contractId, 'workdays._id': workdayId}, {$set: {"workdays.$.timeWorked": diff + workday.timeWorked}, $push: {"workdays.$.time": time}}).exec()
+                .then(() =>{
+                    return diff;
+                });
         });
 };
 
