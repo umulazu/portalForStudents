@@ -1,5 +1,5 @@
 import express from 'express'
-import { Account } from '../mongoose/api/account'
+import { Student } from '../mongoose/api/student'
 import passport from 'passport'
 import minimist from 'minimist'
 
@@ -18,16 +18,16 @@ router.route('/login')
             req.isAuthenticated() ?
                 req.user.username
                 :
-                ''
+                '';
         res.json({ username })
     })
     .post((req, res) => {
-        const allowedLogins = serverConfig.authorization.allowedLogins
+        const allowedLogins = serverConfig.authorization.allowedLogins;
         if (allowedLogins && allowedLogins.length > 0 && !allowedLogins.includes(req.body.username)) {
             return res.status(403).end()
         }
 
-        return Account.findOne({ username: req.body.username }, (error, user) => {
+        return Student.findOne({ username: req.body.username }, (error, user) => {
             if (error) {
                 return res.status(500).end()
             }
@@ -36,7 +36,7 @@ router.route('/login')
                     res.json({ username: req.user.username })
                 })
             } else {
-                Account.register(new Account({ username: req.body.username }), req.body.password, (error) => {
+                Student.register(new Student({ username: req.body.username }), req.body.password, (error) => {
                     if (error) {
                         return res.status(500).end()
                     }

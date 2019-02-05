@@ -54,13 +54,13 @@ module.exports = {
         }
     },
 
-   /* devServer: {
-        contentBase: path.join(root, 'public', 'assets'),
+    devServer: {
+        contentBase: path.join(root, 'dist', 'public', 'assets'),
         publicPath: '/',
         port: 3001,
         headers: { 'Access-Control-Allow-Origin': '*' },
         watchContentBase: true
-    },*/
+    },
 
     plugins: [
         new webpack.IgnorePlugin(/^\.\/locale?!\\ru.js$/, /moment$/),

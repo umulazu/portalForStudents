@@ -12,7 +12,7 @@ import LocalStrategy from 'passport-local'
 
 
 import {addStudent} from "./mongoose/api/student";
-//import authorizationRouter from './routes/authorization'
+import authorizationRouter from './routes/authorization'
 /*import avatarRouter from './routes/avatar'
 import resumeRouter from './routes/resume'
 import commentAttachmentRouter from './routes/commentAttachment'
@@ -52,7 +52,7 @@ passport.use(new LocalStrategy(Student.authenticate()));
 passport.serializeUser(Student.serializeUser());
 passport.deserializeUser(Student.deserializeUser());
 
-//app.use(authorizationRouter)
+app.use(authorizationRouter)
 /*app.use(avatarRouter)
 app.use(resumeRouter)
 app.use(commentAttachmentRouter)

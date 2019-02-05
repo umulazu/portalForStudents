@@ -1,5 +1,4 @@
 import React from 'react'
-import ReactDOMServer from 'react-dom/server'
 import { ServerStyleSheet } from 'styled-components'
 
 const template = (props) => {
@@ -26,13 +25,13 @@ const template = (props) => {
         </div>                      
         <script type="text/javascript">
           window['APP_CONFIG'] = ${JSON.stringify(config)}
-        </script>        
+          
+        </script>
+        <script async type="text/javascript" src="${assetsRoot + 'vendors.js'}"></script>
+        <script async type="text/javascript" src="${assetsRoot + 'main.js'}"></script>
       </body>
     </html>`
     )
 }
-
-/*<script async type="text/javascript" src="${assetsRoot + 'vendors.js'}"></script>
-        <script async type="text/javascript" src="${assetsRoot + 'main.js'}"></script>*/
 
 export default template
