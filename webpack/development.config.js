@@ -55,7 +55,7 @@ module.exports = {
     },
 
     devServer: {
-        contentBase: path.join(root, 'dist', 'public', 'assets'),
+        contentBase: path.join(root, 'public', 'assets'),
         publicPath: '/',
         port: 3001,
         headers: { 'Access-Control-Allow-Origin': '*' },
