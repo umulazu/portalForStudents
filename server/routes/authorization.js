@@ -26,7 +26,6 @@ router.route('/login')
         if (allowedLogins && allowedLogins.length > 0 && !allowedLogins.includes(req.body.username)) {
             return res.status(403).end()
         }
-        console.log(req.body);
 
         return Student.findOne({ username: req.body.username }, (error, user) => {
             if (error) {
@@ -34,9 +33,8 @@ router.route('/login')
             }
             if (user) {
                 passport.authenticate('local')(req, res, () => {
-                    res.json({ username: req.user.username });
-                })
-                console.log('paa')
+                    res.json({ username: req.user.username })
+                });
             } else {
                 Student.register(new Student({ username: req.body.username }), req.body.password, (error) => {
                     if (error) {
