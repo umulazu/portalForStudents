@@ -1,6 +1,5 @@
 import { all, takeLatest, call, put } from 'redux-saga/effects'
 import * as actions from './actions'
-import * as applicationActions from '../applicationActions'
 import { login, logout } from '../api/authorizationService'
 
 export default  function* authorizationSaga() {

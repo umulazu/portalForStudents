@@ -2,13 +2,11 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
-import { SELECTORS } from '../../rootReducer'
-import {Button, Dialog} from "@material-ui/core";
 
 class SignInDialog extends Component {
     constructor(props) {
         super(props);
-        this.state = ({ isOpen: true });
+        this.state = ({ isOpen: false });
         this.state.account = { email: '', password: '' }
     }
 
@@ -26,7 +24,6 @@ class SignInDialog extends Component {
     };
 
     handleChangedEmail = (email) => {
-        console.log(email)
         this.setState({ account: {email: email, password: this.state.account.password} });
     };
 
@@ -38,10 +35,10 @@ class SignInDialog extends Component {
         console.log(this.state)
         return (
             <React.Fragment>
-                <Button onClick={this.handleOpen}>
+                <button onClick={this.handleOpen}>
                     SignIn
-                </Button>
-                <Dialog
+                </button>
+                <dialog
                     title='Sign in'
                     open={this.state.isOpen}
                     onClose={this.handleClose}>
@@ -49,8 +46,8 @@ class SignInDialog extends Component {
                 <input type={"text"} onChange={(e) => this.handleChangedEmail(e.target.value)} value={this.state.account.email}/>
                 <label>Password</label>
                 <input type={"text"} onChange={(e) => this.handleChangedPassword(e.target.value)} value={this.state.account.password}/>
-                <Button onClick={this.signIn}>Sign in</Button>
-                </Dialog>
+                <button onClick={this.signIn}>Sign in</button>
+                </dialog>
             </React.Fragment>
         )
     }
