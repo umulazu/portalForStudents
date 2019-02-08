@@ -1,12 +1,13 @@
 import React, { Component } from 'react'
 import Appbar from './appbar';
+import classNames from './scss/appview.module.scss';
 
 class AppView extends Component {
     render() {
         return (
-            <React.Fragment>
+            <div className={classNames.appview}>
                 <Appbar/>
-            </React.Fragment>
+            </div>
         )
     }
 }

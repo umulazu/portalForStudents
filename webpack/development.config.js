@@ -1,11 +1,45 @@
 const path = require('path');
 const webpack = require('webpack');
 const serverConfig = require('../server/development.server.config');
+const autoprefixer = require('autoprefixer');
 
 const root = path.join(__dirname, '..');
 
+const CSSModuleLoader = {
+    loader: 'css-loader',
+    options: {
+        modules: true,
+        sourceMap: true,
+        localIdentName: '[local]__[hash:base64:5]',
+        minimize: true
+    }
+}
+
+const CSSLoader = {
+    loader: 'css-loader',
+    options: {
+        modules: false,
+        sourceMap: true,
+        minimize: true
+    }
+}
+
+const postCSSLoader = {
+    loader: 'postcss-loader',
+    options: {
+        ident: 'postcss',
+        sourceMap: true,
+        plugins: () => [
+            autoprefixer({
+                browsers: ['>1%', 'last 4 versions', 'Firefox ESR', 'not ie < 9']
+            })
+        ]
+    }
+}
+
 module.exports = {
     mode: 'development',
+    devtool: false,
 
     entry: {
         main: [
@@ -30,6 +64,20 @@ module.exports = {
             {
                 test: /\.css$/,
                 loaders: [ 'style-loader', 'css-loader' ]
+            },
+            {
+                test: /\.scss$/,
+                exclude: /\.module\.scss$/,
+                use: ['style-loader', CSSLoader, postCSSLoader, 'sass-loader']
+            },
+            {
+                test: /\.module\.scss$/,
+                use: [
+                    'style-loader',
+                    CSSModuleLoader,
+                    postCSSLoader,
+                    'sass-loader',
+                ]
             },
             {
                 test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
@@ -64,6 +112,10 @@ module.exports = {
 
     plugins: [
         new webpack.IgnorePlugin(/^\.\/locale?!\\ru.js$/, /moment$/),
-        new webpack.HotModuleReplacementPlugin()
+        new webpack.HotModuleReplacementPlugin(),
+        new webpack.SourceMapDevToolPlugin({
+            filename: '[name].js.map',
+            exclude: ['vendor.js']
+        })
     ]
 };
