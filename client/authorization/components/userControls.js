@@ -13,7 +13,7 @@ const UserControls = (props) => {
 
     return (
         <button onClick={logout}>
-            Sign Out
+            Sign out
         </button>
     );
 };
