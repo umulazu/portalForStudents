@@ -3,16 +3,18 @@ import PropTypes from 'prop-types'
 import { connect } from 'react-redux'
 import * as actions from '../actions'
 import SignInDialog from './signInDialog'
+import classNames from "./scss/button.module.scss";
 
 const UserControls = (props) => {
     const { authorized, logout} = props;
-
     if (!authorized) {
-        return <SignInDialog />
+        return <SignInDialog/>
     }
 
+    const {button} = classNames;
     return (
-        <button onClick={logout}>
+
+        <button onClick={logout} className={button}>
             Sign out
         </button>
     );

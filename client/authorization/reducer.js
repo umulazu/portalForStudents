@@ -1,59 +1,90 @@
-import { handleActions } from 'redux-actions'
-import * as authorization from './actions'
+import {handleActions} from 'redux-actions'
+import * as actions from './actions'
 
 const initialState = {
     authorized: false,
-    authorizing: true,
-    username: ''
+    username: '',
+    isShown: false,
+    email: '',
+    password: ''
 };
 
 const reducer = handleActions(
     {
-        [authorization.init]: (state) => ({
+        [actions.init]: (state) => ({
             ...state,
-            authorizing: initialState.authorizing,
             authorized: initialState.authorized,
-            username: initialState.username
+            username: initialState.username,
+            isShown: initialState.isShown,
+            email: initialState.email,
+            password: initialState.password
         }),
 
-        [authorization.loginSuccess]: (state, {payload}) => ({
+        [actions.loginSuccess]: (state, {payload}) => ({
             ...state,
-            authorizing: false,
             authorized: true,
-            username: payload.username
+            username: payload.username,
+            isShown: false,
+            email: '',
+            password: ''
         }),
 
-        [authorization.loginFailure]: (state) => ({
+        [actions.loginFailure]: (state) => ({
             ...state,
-            authorizing: false,
             authorized: false,
             username: '',
+            isShown: true,
+            email: '',
+            password: ''
         }),
 
-        [authorization.logoutSuccess]: state => ({
+        [actions.logoutSuccess]: state => ({
             ...state,
-            authorizing: false,
             authorized: false,
-            username: ''
+            username: '',
+            isShown: false,
+            email: '',
+            password: ''
         }),
 
-        [authorization.logoutFailure]: (state) => ({
-            ...state,
-            authorizing: false
+        [actions.logoutFailure]: state => ({
+            ...state
         }),
 
-        [authorization.enableAuthorizing]: state => ({
+        [actions.showForm]: state => ({
             ...state,
-            authorizing: true
-        })
+            authorized: false,
+            username: '',
+            isShown: true,
+            email: '',
+            password: ''
+        }),
+
+        [actions.hideForm]: state => ({
+            ...state,
+            isShown: false,
+            email: '',
+            password: ''
+        }),
+
+        [actions.enterEmail]: (state, {payload}) => ({
+            ...state,
+            authorized: false,
+            username: '',
+            isShown: true,
+            email: payload.email,
+        }),
+
+        [actions.enterPassword]: (state, {payload}) => ({
+            ...state,
+            authorized: false,
+            username: '',
+            isShown: true,
+            password: payload.password
+        }),
+
     },
     initialState
-)
-
-export const SELECTORS = {
-    AUTHORIZED: state => state.authorized,
-    AUTHORIZING: state => state.authorizing,
-    USERNAME: state => state.username
-};
+);
 
 export default reducer

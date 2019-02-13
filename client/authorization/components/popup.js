@@ -1,15 +1,28 @@
-import React from 'react'
+import React, {Component} from 'react'
+import * as ReactDOM from 'react-dom';
 import classNames from './scss/popup.module.scss';
 
-const Popup = (props) => {
-    if (!props.open)
-        return (null);
+class Popup extends Component {
+    constructor(props) {
+        super(props);
+        this.modal = document.createElement('div');
+        this.modal.className = classNames.popup;
+    }
 
-    return (
-        <div className={classNames.popup}>
-            {props.children}
-        </div>
-    );
-};
+    componentDidMount() {
+        document.getElementById('root').appendChild(this.modal);
+    }
+
+    componentWillUnmount() {
+        document.getElementById('root').removeChild(this.modal);
+    }
+
+    render() {
+        return ReactDOM.createPortal(
+            this.props.children,
+            this.modal,
+        );
+    }
+}
 
 export default Popup

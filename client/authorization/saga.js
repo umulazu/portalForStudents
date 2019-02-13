@@ -20,10 +20,7 @@ function* watchLogout() {
 function* loginSaga(action) {
     try {
         const { email, password } = action.payload;
-
-        yield put(actions.enableAuthorizing());
         const username = yield call(login, email, password);
-
         yield put(actions.loginSuccess({ username }));
     }
     catch (error) {
@@ -33,7 +30,6 @@ function* loginSaga(action) {
 
 function* logoutSaga() {
     try {
-        yield put(actions.enableAuthorizing());
         yield call(logout);
         yield put(actions.logoutSuccess())
     }

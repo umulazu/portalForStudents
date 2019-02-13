@@ -14,4 +14,10 @@ export const logoutSuccess = createAction('LOGOUT_SUCCESS');
 
 export const logoutFailure = createAction('LOGOUT_FAILURE');
 
-export const enableAuthorizing = createAction('SET_AUTHORIZING');
+export const showForm = createAction('SHOW_FORM');
+
+export const hideForm = createAction('HIDE_FORM');
+
+export const enterEmail = createAction('ENTER_EMAIL');
+
+export const enterPassword = createAction('ENTER_PASSWORD');
