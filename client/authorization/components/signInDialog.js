@@ -9,11 +9,11 @@ import classNames from './scss/button.module.scss';
 class SignInDialog extends Component {
     render() {
         const {isShown, showForm} = this.props;
-        const {appbar_button} = classNames;
+        const {appbar__button} = classNames;
 
         return (
             <React.Fragment>
-                <button onClick={showForm} className={appbar_button}>
+                <button onClick={showForm} className={appbar__button}>
                     Sign in
                 </button>
                 {

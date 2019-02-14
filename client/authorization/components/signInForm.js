@@ -22,27 +22,28 @@ class SignInForm extends Component {
 
     render() {
         const {email, password, hideForm} = this.props;
-        const {signIn_form, signIn_headline, signIn_input, signIn_button_panel, signIn_button} = classNames;
+        const {signIn__form, signIn__headline, signIn__input, signIn__button} = classNames;
+        const signIn__button_panel = classNames['signIn__button-panel'];
 
         return (
-            <div className={signIn_form}>
-                <h3 className={signIn_headline}>LOGIN</h3>
+            <div className={signIn__form}>
+                <h3 className={signIn__headline}>LOGIN</h3>
                 <input
                     type='text'
                     placeholder="email"
                     onChange={this.handleChangedEmail}
                     value={email}
-                    className={signIn_input}/>
+                    className={signIn__input}/>
                 <input
                     type='text'
                     placeholder="password"
                     onChange={this.handleChangedPassword}
                     value={password}
-                    className={signIn_input}/>
+                    className={signIn__input}/>
 
-                <div className={signIn_button_panel}>
-                    <button onClick={this.signIn} className={signIn_button}>Sign in</button>
-                    <button onClick={hideForm} className={signIn_button}>Cancel</button>
+                <div className={signIn__button_panel}>
+                    <button onClick={this.signIn} className={signIn__button}>Sign in</button>
+                    <button onClick={hideForm} className={signIn__button}>Cancel</button>
                 </div>
             </div>
         )

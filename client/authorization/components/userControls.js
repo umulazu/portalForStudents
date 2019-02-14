@@ -11,10 +11,10 @@ const UserControls = (props) => {
         return <SignInDialog/>
     }
 
-    const {appbar_button} = classNames;
+    const {appbar__button} = classNames;
     return (
 
-        <button onClick={logout} className={appbar_button}>
+        <button onClick={logout} className={appbar__button}>
             Sign out
         </button>
     );
