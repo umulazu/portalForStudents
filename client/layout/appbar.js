@@ -1,6 +1,7 @@
 import React, { Component } from 'react'
 import UserControls from '../authorization/components/userControls'
 import DateControl from '../components/dateControl'
+import ButtonPanel from '../buttonPanel/components/buttonPanel'
 import classNames from './scss/appbar.module.scss';
 
 class Appbar extends Component {
@@ -8,6 +9,7 @@ class Appbar extends Component {
         return (
             <div className={classNames.appbar}>
                 <DateControl/>
+                <ButtonPanel/>
                 <UserControls/>
             </div>
         )

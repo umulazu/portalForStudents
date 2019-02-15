@@ -1,16 +1,16 @@
 import mongoose from 'mongoose'
 import { ContractSchema } from '../schemas'
 import getDiffBetweenTime from '../../utilities/getDiffBetweenTime'
+import areEqualDates from '../../utilities/areEqualDates'
 
-const Contract = mongoose.model('Contract', ContractSchema, 'contracts')
+export const Contract = mongoose.model('Contract', ContractSchema, 'contracts')
 
 export const getContractById = (contractId) => {
     return Contract.findOne({ _id: contractId }).exec()
 };
 
-export const getActiveContractByStudent = (studentId) => {
-    const id = mongoose.Types.ObjectId(studentId);
-    return Contract.findOne({ studentId: id, status: 'Active' }).exec()
+export const getActiveContractByStudent = (username) => {
+    return Contract.findOne({ student: username, status: 'Active' }).exec()
 };
 
 export const addContract = (newContract) => {
@@ -53,7 +53,14 @@ export const updateWorkday = (contractId, workdayId, workday) => {
         });
 };
 
-export const getWorkday = (contractId, workdayId) => {
+export const getWorkdayIdByDate = (contractId, date) => {
+    return Contract.findOne({_id: contractId}).exec()
+        .then((contract) => {
+            return contract.workdays.filter((workday) => areEqualDates(workday.date, date))[0]._id.toString();
+        })
+};
+
+export const getWorkdayById = (contractId, workdayId) => {
     return Contract.findOne({_id: contractId}).exec()
         .then((contract) => {
             return contract.workdays.filter((workday) => workday._id.toString() === workdayId)[0];
@@ -62,7 +69,7 @@ export const getWorkday = (contractId, workdayId) => {
 
 export const addTime = (contractId, workdayId, time) => {
     const diff = getDiffBetweenTime(time);
-    getWorkday(contractId, workdayId)
+    getWorkdayById(contractId, workdayId)
         .then((workday) => {
             return Contract.updateOne({_id: contractId, 'workdays._id': workdayId}, {$set: {"workdays.$.timeWorked": diff + workday.timeWorked}, $push: {"workdays.$.time": time}}).exec()
                 .then(() =>{

@@ -37,6 +37,7 @@ export const ContractSchema = new Schema({
     workdays: [{
         date: {
             type: Date,
+            unique: true,
             required: true
         },
         time: [{
@@ -45,8 +46,8 @@ export const ContractSchema = new Schema({
         }],
         timeWorked: Number
     }],
-    studentId:{
-        type: ObjectId,
+    student:{
+        type: String,
         required: true,
     },
 });
