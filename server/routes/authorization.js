@@ -8,9 +8,9 @@ const serverConfig =
     argv.mode === 'production' ?
         require('../production.server.config')
         :
-        require('../development.server.config')
+        require('../development.server.config');
 
-const router = express.Router()
+const router = express.Router();
 
 router.route('/login')
     .get((req, res) => {
@@ -50,10 +50,10 @@ router.route('/login')
 
 router.route('/logout')
     .get((req, res) => {
-        req.logout()
+        req.logout();
         req.session.destroy(() => {
             res.redirect('/')
         })
-    })
+    });
 
 export default router

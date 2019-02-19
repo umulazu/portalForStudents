@@ -6,23 +6,19 @@ import classNames from './scss/buttonPanel.module.scss'
 
 class ButtonPanel extends Component {
     start = () => {
-        const time = new Date();
+        const time = new Date().toString();
         this.props.start({time});
     };
 
     finish = () => {
-        //{ username, date, start, finish }
-
         const {username, startingTime} = this.props;
-        const start = startingTime;
-        const date = new Date();
-        const finish = new Date();
-        this.props.finish({ username, date, start, finish });
+        const finish = new Date().toString();
+        this.props.finish({ username, date: finish, start: startingTime, finish });
     };
 
     render() {
         const {isShown} = this.props;
-        console.log(isShown);
+
         if(!isShown){
             return (null);
         }
@@ -42,7 +38,7 @@ class ButtonPanel extends Component {
 ButtonPanel.propTypes = {
     isShown: PropTypes.bool.isRequired,
     username: PropTypes.string.isRequired,
-    startingTime: PropTypes.instanceOf(Date).isRequired,
+    startingTime: PropTypes.string.isRequired,
     start: PropTypes.func.isRequired,
     finish: PropTypes.func.isRequired
 };

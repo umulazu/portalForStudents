@@ -26,9 +26,9 @@ const renderApp = (app) => {
     ReactDOM.render(
          <Provider store={store}>
              <div>
-                <Router history={history}>
+                 <Router history={history}>
                     {app}
-                </Router>
+                 </Router>
              </div>
             </Provider>,
         document.getElementById('root')

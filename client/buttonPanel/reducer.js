@@ -4,7 +4,7 @@ import * as authorization from '../authorization/actions'
 
 const initialState = {
     startSelected: false,
-    startingTime: null,
+    startingTime: '',
     username: '',
     isShown: false
 };

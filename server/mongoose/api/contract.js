@@ -43,10 +43,7 @@ export const addWorkday = (contractId, date) => {
     };
     return Contract.updateOne({ _id: contractId }, {
         $push:  {workdays: workday}
-    }).exec()
-        .then(() => {
-            return id.toString();
-        });
+    }).exec();
 };
 
 export const updateWorkday = (contractId, workdayId, workday) => {
@@ -75,8 +72,6 @@ export const getWorkdayById = (contractId, workdayId) => {
             return workdays[0];
         })
 };
-
-
 
 export const addTime = (contractId, workdayId, time) => {
     const diff = getDiffBetweenTime(time);
