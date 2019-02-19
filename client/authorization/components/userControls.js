@@ -26,6 +26,6 @@ UserControls.propTypes = {
 };
 
 export default connect(state => ({
-        authorized: state.authorized
+        authorized: state.authorization.authorized
     }
 ), actions)(UserControls)

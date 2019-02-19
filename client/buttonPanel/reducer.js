@@ -1,9 +1,12 @@
 import {handleActions} from 'redux-actions'
 import * as actions from './actions'
+import * as authorization from '../authorization/actions'
 
 const initialState = {
     startSelected: false,
-    startingTime: null
+    startingTime: null,
+    username: '',
+    isShown: false
 };
 
 const reducer = handleActions(
@@ -11,7 +14,15 @@ const reducer = handleActions(
         [actions.init]: (state) => ({
             ...state,
             startSelected: initialState.startSelected,
-            startingTime: initialState.startingTime
+            startingTime: initialState.startingTime,
+            username: initialState.username,
+            isShown: initialState.isShown
+        }),
+
+        [authorization.loginSuccess]: (state, {payload}) => ({
+            ...state,
+            username: payload.username,
+            isShown: true
         }),
 
         [actions.start]: (state, {payload}) => ({
@@ -20,14 +31,20 @@ const reducer = handleActions(
             startingTime: payload.time
         }),
 
-        [actions.finishSuccess]: (state) => ({
+        [actions.finishSuccess]: state => ({
             ...state,
             startSelected: false,
             startingTime: null
         }),
 
-        [actions.finishFailure]: (state) => ({
+        [actions.finishFailure]: state => ({
             ...state,
+        }),
+
+        [authorization.logoutSuccess]: state => ({
+            ...state,
+            username: '',
+            isShown: false
         }),
     },
     initialState

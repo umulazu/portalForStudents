@@ -32,12 +32,15 @@ export const updateContract = (contractId, contractNewState) => {
 };
 
 export const deleteContract = (contractId) => {
-    return Contract.findByIdAndRemove(contractId).exec();
+    return Contract.findByIdAndRemove(contractId).exec();//
 };
 
-export const addWorkday = (contractId, workday) => {
-    const id = mongoose.Types.ObjectId();
-    workday._id = id;
+export const addWorkday = (contractId, date) => {
+    const workday = {
+        date: date,
+        time: [],
+        timeWorked: 0
+    };
     return Contract.updateOne({ _id: contractId }, {
         $push:  {workdays: workday}
     }).exec()
@@ -56,16 +59,24 @@ export const updateWorkday = (contractId, workdayId, workday) => {
 export const getWorkdayIdByDate = (contractId, date) => {
     return Contract.findOne({_id: contractId}).exec()
         .then((contract) => {
-            return contract.workdays.filter((workday) => areEqualDates(workday.date, date))[0]._id.toString();
+            const workdays = contract.workdays.filter((workday) => areEqualDates(workday.date, date));
+            if(workdays.length === 0)
+                return null;
+            return workdays[0]._id.toString();
         })
 };
 
 export const getWorkdayById = (contractId, workdayId) => {
     return Contract.findOne({_id: contractId}).exec()
         .then((contract) => {
-            return contract.workdays.filter((workday) => workday._id.toString() === workdayId)[0];
+            const workdays = contract.workdays.filter((workday) => workday._id.toString() === workdayId);
+            if(workdays.length === 0)
+                return null;
+            return workdays[0];
         })
 };
+
+
 
 export const addTime = (contractId, workdayId, time) => {
     const diff = getDiffBetweenTime(time);

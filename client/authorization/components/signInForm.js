@@ -60,6 +60,6 @@ SignInForm.propTypes = {
 };
 
 export default connect(state => ({
-    email: state.email,
-    password: state.password
+    email: state.authorization.email,
+    password: state.authorization.password
 }), actions)(SignInForm)

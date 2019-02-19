@@ -15,7 +15,7 @@ function* watchFinish() {
 function* finishSaga(action) {
     try {
         const { username, date, start, finish } = action.payload;
-        yield call(username, date, start, finish);
+        yield call(addTime, username, date, start, finish);
         yield put(actions.finishSuccess());
     }
     catch (error) {

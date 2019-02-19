@@ -1,8 +1,8 @@
 import { createAction } from 'redux-actions'
 
-export const init = createAction('INIT')
+export const init = createAction('INIT');
 
-export const login = createAction('LOGIN')
+export const login = createAction('LOGIN');
 
 export const loginSuccess = createAction('LOGIN_SUCCESS');
 
