@@ -1,21 +1,18 @@
 .button-panel{
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
+  margin-left: 100px;
 }
 
 .button{
   height: 50px;
   cursor: pointer;
   border: 0;
+  color: whitesmoke;
   background-color: transparent;
-  margin: 10px;
 }
 
 .button_highlighted{
-  height: 50px;
-  cursor: pointer;
-  border: 0;
-  background-color: transparent;
-  margin: 10px;
+  background-color: coral;
 }

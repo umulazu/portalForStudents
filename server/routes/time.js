@@ -1,6 +1,5 @@
 import express from 'express'
 import { getActiveContractByStudent, getWorkdayIdByDate, addTime, addWorkday} from '../mongoose/api/contract'
-import passport from 'passport'
 import authenticationCheckMiddleware from '../middlewares/authenticationCheck'
 
 const router = express.Router();
@@ -16,20 +15,12 @@ router.route('/addTime')
                 workdayId = await getWorkdayIdByDate(contractId, req.body.date);
             }
 
-            return addTime(contractId, workdayId, {
+            const diff = await addTime(contractId, workdayId, {
                 startingTime: req.body.start,
                 endingTime: req.body.finish
-            }, (error, diff) => {
-                if (error) {
-                    return res.status(500).end();
-                }
-                if (diff) {
-                    passport.authenticate('local')(req, res, () => {
-                        res.json({diff})
-                    });
-                }
             });
 
+            return res.json({diff});
         })()
     });
 

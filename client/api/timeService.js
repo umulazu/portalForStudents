@@ -14,4 +14,4 @@ export const addTime = (username, date, start, finish) => {
                 throw response.status
             }
         })
-}
+};

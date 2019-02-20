@@ -5,82 +5,73 @@ import areEqualDates from '../../utilities/areEqualDates'
 
 export const Contract = mongoose.model('Contract', ContractSchema, 'contracts')
 
-export const getContractById = (contractId) => {
+export const getContractById = async (contractId) => {
     return Contract.findOne({ _id: contractId }).exec()
 };
 
-export const getActiveContractByStudent = (username) => {
+export const getActiveContractByStudent = async (username) => {
     return Contract.findOne({ student: username, status: 'Active' }).exec()
 };
 
-export const addContract = (newContract) => {
-    return Contract.create(newContract)
-        .then(contract => {
-            return contract._id.toString();
-        });
+export const addContract = async (newContract) => {
+    const contract = await Contract.create(newContract)
+    return contract._id.toString();
 };
 
-export const updateContract = (contractId, contractNewState) => {
-    return Contract.updateOne({ _id: contractId }, {
+export const updateContract = async (contractId, contractNewState) => {
+    await Contract.updateOne({_id: contractId}, {
         $set: {
             ...contractNewState
         }
-    }).exec()
-        .then(() => {
-            return contractId;
-        });
+    }).exec();
+    return contractId;
 };
 
-export const deleteContract = (contractId) => {
-    return Contract.findByIdAndRemove(contractId).exec();//
+export const deleteContract = async (contractId) => {
+    return Contract.findByIdAndRemove(contractId).exec();
 };
 
-export const addWorkday = (contractId, date) => {
+export const addWorkday = async (contractId, date) => {
     const workday = {
         date: date,
         time: [],
         timeWorked: 0
     };
-    return Contract.updateOne({ _id: contractId }, {
+
+    await Contract.updateOne({ _id: contractId }, {
         $push:  {workdays: workday}
     }).exec();
 };
 
-export const updateWorkday = (contractId, workdayId, workday) => {
-    return Contract.updateOne({_id: contractId, 'workdays._id': workdayId}, {$set: {'workdays.$': workday}}).exec()
-        .then(() => {
-            return workdayId;
-        });
+export const updateWorkday = async (contractId, workdayId, workday) => {
+    await Contract.updateOne({_id: contractId, 'workdays._id': workdayId}, {$set: {'workdays.$': workday}}).exec()
+    return workdayId;
 };
 
-export const getWorkdayIdByDate = (contractId, date) => {
-    return Contract.findOne({_id: contractId}).exec()
-        .then((contract) => {
-            const workdays = contract.workdays.filter((workday) => areEqualDates(workday.date, date));
-            if(workdays.length === 0)
-                return null;
-            return workdays[0]._id.toString();
-        })
+export const getWorkdayIdByDate = async (contractId, date) => {
+    const contract = await Contract.findOne({_id: contractId}).exec();
+    const workdays = await contract.workdays.filter((workday) => areEqualDates(workday.date, date));
+
+    if(workdays.length === 0)
+        return null;
+    return workdays[0]._id.toString();
 };
 
-export const getWorkdayById = (contractId, workdayId) => {
-    return Contract.findOne({_id: contractId}).exec()
-        .then((contract) => {
-            const workdays = contract.workdays.filter((workday) => workday._id.toString() === workdayId);
-            if(workdays.length === 0)
-                return null;
-            return workdays[0];
-        })
+export const getWorkdayById = async (contractId, workdayId) => {
+    const contract = await Contract.findOne({_id: contractId}).exec();
+    const workdays = await contract.workdays.filter((workday) => workday._id.toString() === workdayId);
+
+    if(workdays.length === 0)
+        return null;
+    return workdays[0];
 };
 
-export const addTime = (contractId, workdayId, time) => {
+export const addTime = async (contractId, workdayId, time) => {
     const diff = getDiffBetweenTime(time);
-    getWorkdayById(contractId, workdayId)
-        .then((workday) => {
-            return Contract.updateOne({_id: contractId, 'workdays._id': workdayId}, {$set: {"workdays.$.timeWorked": diff + workday.timeWorked}, $push: {"workdays.$.time": time}}).exec()
-                .then(() =>{
-                    return diff;
-                });
-        });
+    const workday = await getWorkdayById(contractId, workdayId);
+
+    await Contract.updateOne({_id: contractId, 'workdays._id': workdayId}, {$set: {"workdays.$.timeWorked": diff + workday.timeWorked}, $push: {"workdays.$.time": time}}).exec();
+
+    return diff;
 };
 

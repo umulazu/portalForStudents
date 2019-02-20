@@ -34,7 +34,7 @@ const reducer = handleActions(
         [actions.finishSuccess]: state => ({
             ...state,
             startSelected: false,
-            startingTime: null
+            startingTime: ''
         }),
 
         [actions.finishFailure]: state => ({
