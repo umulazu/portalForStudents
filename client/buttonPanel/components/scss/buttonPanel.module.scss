@@ -11,8 +11,8 @@
   border: 0;
   color: whitesmoke;
   background-color: transparent;
-}
 
-.button_highlighted{
-  background-color: coral;
+  &--highlighted{
+    background-color: coral;
+  }
 }

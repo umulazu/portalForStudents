@@ -2,8 +2,6 @@ import {handleActions} from 'redux-actions'
 import * as actions from './actions'
 
 const initialState = {
-    authorized: false,
-    username: '',
     isShown: false,
     email: '',
     password: ''
@@ -13,17 +11,13 @@ const reducer = handleActions(
     {
         [actions.init]: (state) => ({
             ...state,
-            authorized: initialState.authorized,
-            username: initialState.username,
             isShown: initialState.isShown,
             email: initialState.email,
             password: initialState.password
         }),
 
-        [actions.loginSuccess]: (state, {payload}) => ({
+        [actions.loginSuccess]: (state) => ({
             ...state,
-            authorized: true,
-            username: payload.username,
             isShown: false,
             email: '',
             password: ''
@@ -31,8 +25,6 @@ const reducer = handleActions(
 
         [actions.loginFailure]: (state) => ({
             ...state,
-            authorized: false,
-            username: '',
             isShown: true,
             email: '',
             password: ''
@@ -40,8 +32,6 @@ const reducer = handleActions(
 
         [actions.logoutSuccess]: state => ({
             ...state,
-            authorized: false,
-            username: '',
             isShown: false,
             email: '',
             password: ''
@@ -53,8 +43,6 @@ const reducer = handleActions(
 
         [actions.showForm]: state => ({
             ...state,
-            authorized: false,
-            username: '',
             isShown: true,
             email: '',
             password: ''
@@ -69,7 +57,6 @@ const reducer = handleActions(
 
         [actions.enterEmail]: (state, {payload}) => ({
             ...state,
-            authorized: false,
             username: '',
             isShown: true,
             email: payload.email,
@@ -77,7 +64,6 @@ const reducer = handleActions(
 
         [actions.enterPassword]: (state, {payload}) => ({
             ...state,
-            authorized: false,
             username: '',
             isShown: true,
             password: payload.password

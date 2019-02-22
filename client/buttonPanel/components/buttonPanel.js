@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import PropTypes from 'prop-types'
 import {connect} from 'react-redux';
 import * as actions from '../actions'
+import getClassNames from '../../utilities/getClassnames'
 import classNames from './scss/buttonPanel.module.scss'
 
 class ButtonPanel extends Component {
@@ -17,27 +18,30 @@ class ButtonPanel extends Component {
     };
 
     render() {
-        const { isShown, startSelected } = this.props;
+        const { authorized, startSelected } = this.props;
 
-        if(!isShown){
+        if(!authorized){
             return (null);
         }
 
-        const {button, button_highlighted} = classNames;
+        const {button} = classNames;
+        const button_highlighted = classNames['button--highlighted'];
+        const startClasses = getClassNames({[button]: true, [button_highlighted]: !startSelected});
+        const finishClasses = getClassNames({[button]: true, [button_highlighted]: startSelected});
+
         const button_panel = classNames['button-panel'];
-        const highlightedClass = button + ' ' + button_highlighted;
 
         return (
             <div className={button_panel}>
-                <button onClick={this.start} className={startSelected ? button : highlightedClass} disabled={startSelected}>Начать</button>
-                <button onClick={this.finish} className={startSelected ? highlightedClass : button} disabled={!startSelected}>Закончить</button>
+                <button onClick={this.start} className={startClasses} disabled={startSelected}>Начать</button>
+                <button onClick={this.finish} className={finishClasses} disabled={!startSelected}>Закончить</button>
             </div>
         )
     }
 }
 
 ButtonPanel.propTypes = {
-    isShown: PropTypes.bool.isRequired,
+    authorized: PropTypes.bool.isRequired,
     username: PropTypes.string.isRequired,
     startingTime: PropTypes.string.isRequired,
     startSelected: PropTypes.bool.isRequired,
@@ -46,8 +50,8 @@ ButtonPanel.propTypes = {
 };
 
 export default connect(state => ({
-    isShown: state.buttonPanel.isShown,
-    username: state.buttonPanel.username,
+    authorized: state.application.authorized,
+    username: state.application.username,
     startingTime: state.buttonPanel.startingTime,
     startSelected: state.buttonPanel.startSelected
 }), actions)(ButtonPanel)

@@ -1,8 +1,10 @@
 import { combineReducers } from 'redux'
-import authorization, { SELECTORS as AUTHORIZATION } from './authorization/reducer'
-import buttonPanel, { SELECTORS as CANDIDATES } from './buttonPanel/reducer'
+import application from './applicationReducer'
+import authorization from './authorization/reducer'
+import buttonPanel from './buttonPanel/reducer'
 
 export default combineReducers({
+    application,
     authorization,
     buttonPanel
 })
