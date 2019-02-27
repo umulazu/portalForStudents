@@ -5,20 +5,30 @@ import { Provider } from 'react-redux'
 import Router from 'react-router/Router'
 import createBrowserHistory from 'history/createBrowserHistory'
 import AppView from './layout/appview'
-import reducer from './authorization/reducer'
-import createStore from './utilities/createStore'
+import reducer from './rootReducer'
+import rootSaga from './rootSaga'
+import  { createStore, sagaMiddleware } from './utilities/createStore'
+import {init} from './rootActions';
 
 const history = createBrowserHistory();
 
 const store = createStore(reducer);
 
+let sagaRun = sagaMiddleware.run(function* () {
+    yield rootSaga({ history })
+});
+
+
+store.dispatch(init());
+
+
 const renderApp = (app) => {
     ReactDOM.render(
          <Provider store={store}>
              <div>
-                <Router history={history}>
+                 <Router history={history}>
                     {app}
-                </Router>
+                 </Router>
              </div>
             </Provider>,
         document.getElementById('root')
@@ -26,10 +36,25 @@ const renderApp = (app) => {
 };
 
 renderApp(<AppView />);
-/*
+
 if (module.hot) {
     module.hot.accept('./layout/appview', () => {
         const nextApp = require('./layout/appview').default;
         renderApp(nextApp)
     });
-}*/
+
+    module.hot.accept('./rootReducer', () => {
+        const nextReducer = require('./rootReducer').default;
+        store.replaceReducer(nextReducer)
+    });
+
+    module.hot.accept('./rootSaga', () => {
+        const newRootSaga = require('./rootSaga').default;
+        sagaRun.cancel();
+        sagaRun.done.then(() => {
+            sagaRun = sagaMiddleware.run(function* replaceSaga() {
+                yield newRootSaga({ history })
+            })
+        })
+    })
+}

@@ -10,13 +10,8 @@ import expressSession  from 'express-session'
 import passport from 'passport'
 import LocalStrategy from 'passport-local'
 
-
-import {addStudent} from "./mongoose/api/student";
 import authorizationRouter from './routes/authorization'
-/*import avatarRouter from './routes/avatar'
-import resumeRouter from './routes/resume'
-import commentAttachmentRouter from './routes/commentAttachment'
-import graphqlRouter from './routes/graphql'*/
+import timeRouter from './routes/time'
 import template from './template'
 import mongoose from "mongoose";
 
@@ -28,12 +23,6 @@ const serverConfig =
         require('./production.server.config')
         :
         require('./development.server.config');
-
-/*console.log(
-    productionMode ?
-        'PortalForStudents server is starting with production mode...'
-        :
-        'PortalForStudents server is starting with development mode...')*/
 
 const app = express();
 
@@ -52,12 +41,9 @@ passport.use(new LocalStrategy(Student.authenticate()));
 passport.serializeUser(Student.serializeUser());
 passport.deserializeUser(Student.deserializeUser());
 
-app.use(authorizationRouter)
-/*app.use(avatarRouter)
-app.use(resumeRouter)
-app.use(commentAttachmentRouter)
-app.use(graphqlRouter)
-*/
+app.use(authorizationRouter);
+app.use(timeRouter);
+
 app.get('/*', (req, res) => {
     res.send(template({
         assetsRoot: serverConfig.assetsRoot,

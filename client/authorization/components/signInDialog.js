@@ -32,5 +32,5 @@ SignInDialog.propTypes = {
 };
 
 export default connect(state => ({
-    isShown: state.isShown
+    isShown: state.authorization.isShown
 }), actions)(SignInDialog)

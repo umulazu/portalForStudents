@@ -12,8 +12,8 @@ const UserControls = (props) => {
     }
 
     const {appbar__button} = classNames;
-    return (
 
+    return (
         <button onClick={logout} className={appbar__button}>
             Sign out
         </button>
@@ -26,6 +26,5 @@ UserControls.propTypes = {
 };
 
 export default connect(state => ({
-        authorized: state.authorized
-    }
-), actions)(UserControls)
+    authorized: state.application.authorized
+}), actions)(UserControls)
