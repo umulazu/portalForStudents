@@ -12,7 +12,28 @@ const serverConfig =
 
 const router = express.Router();
 
-router.route('/login')
+router.route('/signup')
+    .post((req, res) => {
+        return Student.findOne({ email: req.body.email }, (error, user) => {
+            if (error) {
+                return res.status(500).end();
+            }
+            if (user) {
+                return res.status(500).end();
+            } else {
+                Student.register(new Student({ email: req.body.email, username: req.body.username }), req.body.password, (error) => {
+                    if (error) {
+                        return res.status(500).end()
+                    }
+                    passport.authenticate('local')(req, res, () => {
+                        res.json({ username: req.body.username })
+                    })
+                })
+            }
+        })
+    });
+
+router.route('/signin')
     .get((req, res) => {
         const username =
             req.isAuthenticated() ?
@@ -23,32 +44,25 @@ router.route('/login')
     })
     .post((req, res) => {
         const allowedLogins = serverConfig.authorization.allowedLogins;
-        if (allowedLogins && allowedLogins.length > 0 && !allowedLogins.includes(req.body.username)) {
+        if (allowedLogins && allowedLogins.length > 0 && !allowedLogins.includes(req.body.email)) {
             return res.status(403).end()
         }
 
-        return Student.findOne({ username: req.body.username }, (error, user) => {
+        return Student.findOne({ email: req.body.email }, (error, user) => {
             if (error) {
                 return res.status(500).end()
             }
             if (user) {
                 passport.authenticate('local')(req, res, () => {
-                    res.json({ username: req.user.username })
+                    res.json({ username: user.username })
                 });
             } else {
-                Student.register(new Student({ username: req.body.username }), req.body.password, (error) => {
-                    if (error) {
-                        return res.status(500).end()
-                    }
-                    passport.authenticate('local')(req, res, () => {
-                        res.json({ username: req.body.username })
-                    })
-                })
+                return res.status(500).end()
             }
         })
     })
 
-router.route('/logout')
+router.route('/signout')
     .get((req, res) => {
         req.logout();
         req.session.destroy(() => {

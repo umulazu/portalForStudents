@@ -1,11 +1,11 @@
-export const login = (username, password) => {
-    return fetch('/login', {
+export const signin = (email, password) => {
+    return fetch('/signin', {
         method: 'POST',
         credentials: 'include',
         headers: {
             'Content-Type': 'application/json'
         },
-        body: JSON.stringify({ username, password })
+        body: JSON.stringify({ email, password })
     })
         .then(response => {
             if (response.status === 200) {
@@ -16,8 +16,8 @@ export const login = (username, password) => {
         })
 }
 
-export const logout = () => {
-    return fetch('/logout', {
+export const signout = () => {
+    return fetch('/signout', {
         method: 'GET',
         credentials: 'include'
     })

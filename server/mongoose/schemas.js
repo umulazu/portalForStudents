@@ -1,10 +1,10 @@
 import mongoose from 'mongoose'
 
 const Schema = mongoose.Schema;
-const ObjectId = mongoose.Schema.Types.ObjectId;
 
 export const StudentSchema = new Schema({
-    username: {
+    username: String,
+    email: {
         type: String,
         unique: true,
         required: true
