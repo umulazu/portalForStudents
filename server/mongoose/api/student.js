@@ -9,6 +9,14 @@ export const getStudentById = (studentId) => {
     return Student.findOne({ _id: studentId }).exec();
 };
 
+export const getStudentByEmail = (email) => {
+    return Student.findOne({ email: email }).exec();
+};
+
+export const updateStudent = (studentId, username) => {
+    return Student.updateOne({_id: studentId}, {$set: {"username": username}}).exec();
+};
+
 export const addStudent = (newStudent) => {
     return Student.create(newStudent)
         .then(student => {
