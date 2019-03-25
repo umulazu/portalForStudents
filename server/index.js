@@ -8,12 +8,10 @@ import { connect } from './mongoose'
 import { Student } from './mongoose/api/student'
 import expressSession  from 'express-session'
 import passport from 'passport'
-import LocalStrategy from 'passport-local'
 
 import authorizationRouter from './routes/authorization'
 import timeRouter from './routes/time'
 import template from './template'
-import mongoose from "mongoose";
 
 const argv = minimist(process.argv.slice(2));
 const productionMode = argv.mode === 'production';
@@ -37,7 +35,6 @@ app.use(cookieParser());
 app.use(passport.initialize());
 app.use(passport.session());
 
-passport.use(new LocalStrategy(Student.authenticate()));
 passport.serializeUser(Student.serializeUser());
 passport.deserializeUser(Student.deserializeUser());
 
