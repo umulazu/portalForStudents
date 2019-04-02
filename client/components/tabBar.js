@@ -1,59 +1,44 @@
-import React, {useState} from 'react'
+import React, {Component} from 'react'
 import PropTypes from 'prop-types'
 import classNames from './scss/tabBar.module.scss'
 import getClassNames from "../utilities/getClassnames";
 
-const handle=(setSelectedId)=>(event) =>{
-    const id = event.target.id;
-    console.log('id: ' + id);
-    setSelectedId(id);
-};
+class TabBar extends Component {
+    /*constructor(props){
+        super(props);
+        this.state = {selectedId: 1};
+    }*/
 
-function TabBar(props) {
-    const [selectedId, setSelectedId] = useState(1);
-    const {handleChanged, tabs} = props;
-
-   /* const handleClick = (event) => {
+    handleClick = (event) => {
         const id = event.target.id;
+        //this.setState({selectedId: id});
+        this.props.handleChanged(id);
+    };
 
-        console.log('id: ' + id);
+    render() {
+        const {tabs, selectedId} = this.props;
+        const {tab} = classNames;
+        const tab_selected = classNames['tab--selected'];
+        const selected = getClassNames({[tab]: true, [tab_selected]: true});
+        const notSelected = getClassNames({[tab]: true, [tab_selected]: false});
 
-        setSelectedId(id);
+        const tab_bar = classNames['tab-selected'];
 
-        console.log('selectedId: ' + selectedId);
-
-        handleChanged(id);
-    };*/
-
-    const {tab} = classNames;
-    const tab_selected = classNames['tab--selected'];
-    const selected = getClassNames({[tab]: true, [tab_selected]: true});
-    const notSelected = getClassNames({[tab]: true, [tab_selected]: false});
-
-    const tab_bar = classNames['tab-selected'];
-
-    //const elements =
-
-    return (
-        <div className={tab_bar}>
-            {selectedId}
-            {tabs.map((tab) => {
-                const isSelected = (selectedId.toString() === tab.id.toString());
-
-                console.log('selectedId: ' + selectedId);
-                console.log('tab.id.toString(): ' + tab.id.toString());
-                console.log('isSelected: ' + isSelected);
-
-                return <button
-                    id={tab.id}
-                    key={tab.id}
-                    className={isSelected ? selected : notSelected}
-                    onClick={handle(setSelectedId)}>
-                    {tab.text}
-                </button>
-            })}
-        </div>
-    )
+        return (
+            <div className={tab_bar}>
+                {tabs.map((tab) => {
+                    const isSelected = (selectedId.toString() === tab.id.toString());
+                    return <button
+                        id={tab.id}
+                        key={tab.id}
+                        className={isSelected ? selected : notSelected}
+                        onClick={this.handleClick}>
+                        {tab.text}
+                    </button>
+                })}
+            </div>
+        )
+    }
 }
 
 TabBar.propTypes = {

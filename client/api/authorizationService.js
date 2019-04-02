@@ -14,7 +14,25 @@ export const signin = (email, password) => {
                 throw response.status
             }
         })
-}
+};
+
+export const signup = (email, password, username) => {
+    return fetch('/signup', {
+        method: 'POST',
+        credentials: 'include',
+        headers: {
+            'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({ email, password, username })
+    })
+        .then(response => {
+            if (response.status === 200) {
+                return response.json().then(data => data.username)
+            } else {
+                throw response.status
+            }
+        })
+};
 
 export const signout = () => {
     return fetch('/signout', {
@@ -28,4 +46,4 @@ export const signout = () => {
                 throw response.status
             }
         })
-}
+};

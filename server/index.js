@@ -1,5 +1,4 @@
 import express from 'express'
-import path from 'path'
 import minimist from 'minimist'
 import bodyParser from 'body-parser'
 import fileUpload from 'express-fileupload'
@@ -27,7 +26,6 @@ const app = express();
 app.set('port', serverConfig.port);
 app.set('view endine', 'ejs');
 
-app.use(express.static(path.join(__dirname, '..', 'public')));
 app.use(expressSession({ secret: serverConfig.authorization.sessionSecret, resave: false, saveUninitialized: false }));
 app.use(bodyParser.json());
 app.use(fileUpload());
@@ -46,7 +44,7 @@ app.get('/*', (req, res) => {
         assetsRoot: serverConfig.assetsRoot,
         username: req.isAuthenticated() ? req.user.username : ''
     }))
-})
+});
 
 connect();
 

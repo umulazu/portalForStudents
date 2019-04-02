@@ -18,7 +18,15 @@ router.route('/signup')
 
                     return student.save()
                         .then(() => {
-                            res.json({username: student.username});
+                            return passport.authenticate('local', { session: false }, (err, passportUser) => {
+                                if(err) {
+                                    return res.status(500).end();
+                                }
+                                if(passportUser) {
+                                    return res.json({ username: passportUser.username });
+                                }
+                                return res.status(400).info;
+                            })(req, res);
                         });
                 }
             })
