@@ -22,7 +22,7 @@ class SignInForm extends Component {
 
     render() {
         const {email, password, hideForm} = this.props;
-        const {signIn__form, signIn__headline, signIn__input, signIn__button} = classNames;
+        const {signIn__form, signIn__input, signIn__button} = classNames;
         const signIn__button_panel = classNames['signIn__button-panel'];
 
         return (

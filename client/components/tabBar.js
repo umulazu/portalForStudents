@@ -4,14 +4,8 @@ import classNames from './scss/tabBar.module.scss'
 import getClassNames from "../utilities/getClassnames";
 
 class TabBar extends Component {
-    /*constructor(props){
-        super(props);
-        this.state = {selectedId: 1};
-    }*/
-
     handleClick = (event) => {
         const id = event.target.id;
-        //this.setState({selectedId: id});
         this.props.handleChanged(id);
     };
 
@@ -19,21 +13,21 @@ class TabBar extends Component {
         const {tabs, selectedId} = this.props;
         const {tab} = classNames;
         const tab_selected = classNames['tab--selected'];
-        const selected = getClassNames({[tab]: true, [tab_selected]: true});
-        const notSelected = getClassNames({[tab]: true, [tab_selected]: false});
 
         const tab_bar = classNames['tab-selected'];
 
         return (
             <div className={tab_bar}>
-                {tabs.map((tab) => {
-                    const isSelected = (selectedId.toString() === tab.id.toString());
+                {tabs.map((currentTab) => {
+                    const isSelected = (selectedId === currentTab.id);
+                    const classes =  getClassNames({[tab]: true, [tab_selected]: isSelected});
+
                     return <button
-                        id={tab.id}
-                        key={tab.id}
-                        className={isSelected ? selected : notSelected}
+                        id={currentTab.id}
+                        key={currentTab.id}
+                        className={classes}
                         onClick={this.handleClick}>
-                        {tab.text}
+                        {currentTab.text}
                     </button>
                 })}
             </div>
@@ -43,7 +37,8 @@ class TabBar extends Component {
 
 TabBar.propTypes = {
     handleChanged: PropTypes.func.isRequired,
-    tabs: PropTypes.array.isRequired
+    tabs: PropTypes.array.isRequired,
+    selectedId: PropTypes.string.isRequired
 };
 
 export default TabBar

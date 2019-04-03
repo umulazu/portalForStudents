@@ -5,14 +5,24 @@ import * as actions from '../actions';
 import Popup from './popup';
 import SignInForm from './signInForm';
 import SignUpForm from './signUpForm';
-import classNames from './scss/button.module.scss';
 import TabBar from '../../components/tabBar';
-import classNames1 from './scss/signInForm.module.scss'
+import classNames from './scss/signInDialog.module.scss'
+
+const signIn = {
+    id: "signIn",
+    text: "Sign in"
+};
+
+const signUp = {
+    id: "signUp",
+    text: "Sign up"
+};
 
 class SignInDialog extends Component {
-    constructor(props){
+    constructor(props) {
         super(props);
-        this.state = {selectedId: 1};
+        this.state = {selectedId: -1};
+        this.tabs = [signIn, signUp];
     }
 
     handleChanged = (tab) => {
@@ -21,40 +31,33 @@ class SignInDialog extends Component {
         showForm();
     };
 
+    showSignInForm = () => {this.handleChanged(signIn.id)};
+
+    showSignUpForm = () => {this.handleChanged(signUp.id)};
+
     render() {
         const {isShown} = this.props;
-        const {appbar__button} = classNames;
-
-        let tabs=[
-            {
-                id: 1,
-                text: "Sign in"
-            },
-            {
-                id: 2,
-                text: "Sign up"
-            }
-        ];
+        const {appbar__button, signIn__form} = classNames;
 
         return (
             <React.Fragment>
-                <button onClick={() => {this.handleChanged(1)}} className={appbar__button}>
-                    Sign in
+                <button onClick={this.showSignInForm} className={appbar__button}>
+                    {signIn.text}
                 </button>
-                <button onClick={() => {this.handleChanged(2)}} className={appbar__button}>
-                    Sign up
+                <button onClick={this.showSignUpForm} className={appbar__button}>
+                    {signUp.text}
                 </button>
                 {
                     isShown &&
                     <Popup>
-                        <div className={classNames1.signIn__form}>
-                            <TabBar handleChanged={this.handleChanged} tabs={tabs} selectedId={this.state.selectedId}/>
+                        <div className={signIn__form}>
+                            <TabBar handleChanged={this.handleChanged} tabs={this.tabs} selectedId={this.state.selectedId}/>
                             {
-                                (this.state.selectedId.toString() === "1") &&
+                                (this.state.selectedId === signIn.id) &&
                                 <SignInForm/>
                             }
                             {
-                                (this.state.selectedId.toString() === "2") &&
+                                (this.state.selectedId === signUp.id) &&
                                 <SignUpForm/>
                             }
                                 </div>
