@@ -1,18 +1,20 @@
-import { all } from 'redux-saga/effects'
-import authorizationSaga from './authorization/saga'
-import buttonPanelSaga from './buttonPanel/saga'
-import statusTableSaga from "./StatusTable/saga";
+import { all } from "redux-saga/effects";
+import authorizationSaga from "./components/Authorization/saga";
+import buttonPanelSaga from "./components/ButtonPanel/saga";
+import workdaysContainerSaga from  "./components/WorkdaysContainer/saga";
+import workStatsSaga from "./components/WorkStats/saga";
 
 const creator = ({ history }) => {
     function* rootSaga() {
         yield all([
             authorizationSaga(),
             buttonPanelSaga({ history }),
-            statusTableSaga()
-        ])
+            workdaysContainerSaga(),
+            workStatsSaga(),
+        ]);
     }
 
-    return rootSaga()
+    return rootSaga();
 };
 
-export default creator
+export default creator;

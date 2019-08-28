@@ -1,0 +1,19 @@
+@import "../../../../constants/variables.module";
+
+.button-panel {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-around;
+}
+
+.button {
+    height: 50px;
+    cursor: pointer;
+    border: 0;
+    color: whitesmoke;
+    background-color: transparent;
+
+    &--highlighted {
+        background-color: $control_buttons-background-color;
+    }
+}

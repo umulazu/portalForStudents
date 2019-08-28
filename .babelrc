@@ -1,6 +1,13 @@
 {
   "presets": [
-    ["@babel/env", { "loose": true }],
+    ["@babel/env",
+      {
+        "targets": {
+          "node": "current"
+        },
+        "loose": true
+      }
+    ],
     "@babel/react"
   ],
   "plugins": [

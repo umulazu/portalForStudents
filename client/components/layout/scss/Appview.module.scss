@@ -1,0 +1,17 @@
+html,
+body,
+svg,
+div,
+td,
+tr,
+th {
+    margin: 0;
+    padding: 0;
+    border: 0;
+}
+
+.appview {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+}

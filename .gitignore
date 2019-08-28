@@ -12,6 +12,7 @@ dist
 local-packages.json
 mongodb/
 .cfg
+<<<<<<< HEAD
 .log
 todos.txt
 

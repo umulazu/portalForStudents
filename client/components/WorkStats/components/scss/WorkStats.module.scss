@@ -1,0 +1,18 @@
+.work-stats {
+    padding: 20px 15px;
+    font: {
+        family: "Roboto", sans-serif;
+        size: 0.83em;
+        weight: normal;
+    }
+    line-height: 150%;
+
+    &__statistic {
+        font-weight: bold;
+    }
+
+    &__rest-for-current-day {
+        color: #df7777;
+        font-weight: bold;
+    }
+}

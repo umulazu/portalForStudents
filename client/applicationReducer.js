@@ -1,31 +1,31 @@
-import { handleActions } from 'redux-actions'
-import * as application from './applicationActions'
-import * as authorization from './authorization/actions'
+import { handleActions } from "redux-actions";
+import * as application from "./applicationActions";
+import * as authorization from "./components/Authorization/actions";
 
 const initialState = {
     authorized: false,
-    name: '',
+    name: "",
 };
 
 const reducer = handleActions(
     {
         [application.init]: () => ({
-            ...initialState
+            ...initialState,
         }),
 
-        [authorization.loginRoutine.SUCCESS]: (state, {payload}) => ({
+        [authorization.loginRoutine.SUCCESS]: (state, { payload }) => ({
             ...state,
             authorized: true,
             name: payload.name,
         }),
 
-        [authorization.logoutRoutine.SUCCESS]: (state) => ({
+        [authorization.logoutRoutine.SUCCESS]: state => ({
             ...state,
             authorized: false,
-            name: '',
-        })
+            name: "",
+        }),
     },
     initialState
 );
 
-export default reducer
+export default reducer;

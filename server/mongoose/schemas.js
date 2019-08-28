@@ -1,4 +1,4 @@
-import mongoose from 'mongoose'
+import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
 // const ObjectId = mongoose.Schema.Types.ObjectId;
@@ -8,37 +8,37 @@ export const StudentSchema = new Schema({
     _id: String,
     name: String,
     password: String,
-    workdays: [{
-        type: String,
-        ref: 'Workday'
-    }],
-    // contracts: [{
-    //     type: String,
-    //     ref: 'Contract'
-    // }]
+    workdays: [
+        {
+            type: String,
+            ref: "Workday",
+        },
+    ],
+    contracts: [
+        {
+            type: String,
+            ref: "Contract",
+        },
+    ],
 });
 
 export const ContractSchema = new Schema({
-    number: {
-        type: String,
-        unique: true,
-        required: true
-    },
+    _id: String,
     status: {
         type: String,
-        required: true
+        required: true,
     },
     startingDay: {
         type: Date,
-        required: true
+        required: true,
     },
     endingDay: {
         type: Date,
-        required: true
+        required: true,
     },
     hoursPerWeek: {
         type: Number,
-        required: true
+        required: true,
     },
     // todo: ссылку на коллекцию workdays мы можем получить здесь через ее привязку к students
     // workdays: [{
@@ -47,18 +47,29 @@ export const ContractSchema = new Schema({
     // }],
     student: {
         type: String,
-        ref: 'Student'
+        ref: "Student",
     },
 });
 
+// todo: rename -> WorkdaysSchema
 export const WorkDaysSchema = new Schema({
     _id: String,
-    times: [{
-        startTime: Date,
-        finishTime: Date
-    }],
+    times: [
+        {
+            startTime: Date,
+            finishTime: Date,
+        },
+    ],
     student: {
         type: String,
-        ref: 'Student'
-    }
+        ref: "Student",
+    },
+});
+
+export const HolidaySchema = new Schema({
+    _id: String,
+});
+
+export const PostponedDaySchema = new Schema({
+    _id: String,
 });

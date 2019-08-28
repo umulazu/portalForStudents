@@ -1,0 +1,19 @@
+.app-content {
+    background: white;
+    display: flex;
+    align-items: flex-end;
+    flex-wrap: wrap-reverse;
+    justify-content: center;
+
+    &__main {
+        width: 50%;
+        margin: 10px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+    }
+
+    &__right-column {
+        margin: 10px;
+        box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
+        height: 100%;
+    }
+}

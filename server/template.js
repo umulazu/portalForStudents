@@ -1,15 +1,14 @@
-import React from 'react'
-import { ServerStyleSheet } from 'styled-components'
+import React from "react";
+import { ServerStyleSheet } from "styled-components";
 
-const template = (props) => {
-    const { assetsRoot, _id } = props
-    const config = { _id }
+const template = props => {
+    const { assetsRoot, _id } = props;
+    const config = { _id };
 
-    const sheet = new ServerStyleSheet()
-    const styles = sheet.getStyleTags()
+    const sheet = new ServerStyleSheet();
+    const styles = sheet.getStyleTags();
 
-    return (
-        `<!doctype html>
+    return `<!doctype html>
     <html lang="ru" class="html">
       <head>
         <meta charset="utf-8">
@@ -26,11 +25,12 @@ const template = (props) => {
           window['APP_CONFIG'] = ${JSON.stringify(config)}
           
         </script>
-        <script async type="text/javascript" src="${assetsRoot + 'vendors.js'}"></script>
-        <script async type="text/javascript" src="${assetsRoot + 'main.js'}"></script>
+        <script async type="text/javascript" src="${assetsRoot +
+            "vendors.js"}"></script>
+        <script async type="text/javascript" src="${assetsRoot +
+            "main.js"}"></script>
       </body>
-    </html>`
-    )
-}
+    </html>`;
+};
 
-export default template
+export default template;

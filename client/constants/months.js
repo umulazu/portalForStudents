@@ -1,50 +1,50 @@
-export default  {
+export default {
     1: {
         name: "Январь",
-        nameAfterDate: "Января"
+        nameAfterDate: "Января",
     },
     2: {
         name: "Февраль",
-        nameAfterDate: "Февраля"
+        nameAfterDate: "Февраля",
     },
     3: {
         name: "Март",
-        nameAfterDate: "Марта"
+        nameAfterDate: "Марта",
     },
     4: {
         name: "Апрель",
-        nameAfterDate: "Апреля"
+        nameAfterDate: "Апреля",
     },
     5: {
         name: "Мая",
-        nameAfterDate: "Мая"
+        nameAfterDate: "Мая",
     },
     6: {
         name: "Июнь",
-        nameAfterDate: "Июня"
+        nameAfterDate: "Июня",
     },
     7: {
         name: "Июль",
-        nameAfterDate: "Июля"
+        nameAfterDate: "Июля",
     },
     8: {
         name: "Январь",
-        nameAfterDate: "Января"
+        nameAfterDate: "Января",
     },
     9: {
         name: "Август",
-        nameAfterDate: "Августа"
+        nameAfterDate: "Августа",
     },
     10: {
         name: "Сентябрь",
-        nameAfterDate: "Сентября"
+        nameAfterDate: "Сентября",
     },
     11: {
         name: "Октябрь",
-        nameAfterDate: "Октября"
+        nameAfterDate: "Октября",
     },
     12: {
         name: "Декабрь",
-        nameAfterDate: "Декабря"
+        nameAfterDate: "Декабря",
     },
 };
