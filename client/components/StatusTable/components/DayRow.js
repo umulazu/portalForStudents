@@ -14,6 +14,7 @@ const DayRow = props => {
         fullTime,
         realTime,
         timestamps,
+        startTime,
     } = props.workday;
     const { dayRowClasses } = props;
 

@@ -54,9 +54,10 @@ const CurrentWorkTime = ({ className }) => {
 
     return (
         <>
-            <div className={className}>Отработанное время за месяц: {workedTime}</div>
-            <div className={className}>Остаток до конца месяца: {restTime}</div>
-            <RestForCurrentDay />
+            <RestForCurrentDay className={className} />
+            <div>Остаток до конца месяца: {restTime}</div>
+            <div>&nbsp;</div>
+            <div>Отработанное время за месяц: {workedTime}</div>
         </>
     );
 };
