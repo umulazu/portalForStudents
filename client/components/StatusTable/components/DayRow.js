@@ -5,7 +5,7 @@ import classNames from "./scss/DayRow.module.scss";
 import getClassNames from "../../../utilities/getClassnames";
 import CurrentRealTimeCell from "./CurrentRealTimeCell";
 import { useSelector } from "react-redux";
-import * as selectors from "../selectors";
+import * as rootSelectors from "../../../rootSelectors";
 
 const DayRow = props => {
     const {
@@ -27,7 +27,7 @@ const DayRow = props => {
         [classNames["day-row__cell_timestamp"]]: true,
     });
 
-    const isStarted = useSelector(selectors.isStarted);
+    const isStarted = useSelector(rootSelectors.isStarted);
     const isToday =
         moment(startTime).format("MMMM D YYYY") ===
         moment().format("MMMM D YYYY");
@@ -55,14 +55,24 @@ const DayRow = props => {
                     <CurrentFullTimeCell
                         className={classNames["day-row__cell"]}
                     />
-                        <CurrentRealTimeCell
+                    <CurrentRealTimeCell
                         className={classNames["day-row__cell"]}
                     />
                 </>
             ) : (
                 <>
-                    <td className={classNames["day-row__cell"]}>{fullTime}</td>
-                    <td className={classNames["day-row__cell"]}>{realTime}</td>
+                    <td
+                        className={classNames["day-row__cell"]}
+                        data-test-component="FullTimeCell"
+                    >
+                        {fullTime}
+                    </td>
+                    <td
+                        className={classNames["day-row__cell"]}
+                        data-test-component="RealTimeCell"
+                    >
+                        {realTime}
+                    </td>
                 </>
             )}
         </tr>

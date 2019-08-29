@@ -7,11 +7,12 @@ import RestForCurrentDay from "./RestForCurrentDay";
 import * as rootSelectors from "../../../rootSelectors";
 import getLastStartDiffNow from "../../../utilities/getLastStartDiffNow";
 import moment from "moment";
+import { getWorkStats } from "../utulities";
 
 const CurrentWorkTime = ({ className }) => {
-    const { realTimeMinutes, restOfTimeMinutes } = useSelector(
-        selectors.getWorkStats
-    );
+    const workdays = useSelector(rootSelectors.getWorkdays);
+    const normOfMonth = useSelector(selectors.getNormOfMonth);
+    const { realTimeMinutes, restOfTimeMinutes } = getWorkStats(workdays, normOfMonth);
     const { lastFullTime, lastStartTimestamp } = useSelector(rootSelectors.getCurrentDayInfo);
     const lastStartDiffNow = lastStartTimestamp && getLastStartDiffNow(lastStartTimestamp);
     const [currentMinutes, setCurrentMinutes] = useState(
@@ -40,16 +41,16 @@ const CurrentWorkTime = ({ className }) => {
     );
     useInterval(setIntervalHandler, clearIntervalHandler);
 
-    const workedHours = Math.floor((realTimeMinutes + currentMinutes) / 60);
-    const workedMinutes =
-        (realTimeMinutes + currentMinutes - (currentMinutes % 15)) % 60;
+    const {
+        workedHours,
+        workedMinutes
+    } = getWorkedTime(realTimeMinutes, currentMinutes);
     const workedTime = workTimeFormat(workedHours, workedMinutes);
 
-    const restHours = Math.floor(
-        (restOfTimeMinutes - currentMinutes + (currentMinutes % 15)) / 60
-    );
-    const restMinutes =
-        (restOfTimeMinutes - currentMinutes + (currentMinutes % 15)) % 60;
+    const {
+        restHours,
+        restMinutes
+    } = getRestTime(restOfTimeMinutes, currentMinutes);
     const restTime = workTimeFormat(restHours, restMinutes);
 
     return (
@@ -63,3 +64,27 @@ const CurrentWorkTime = ({ className }) => {
 };
 
 export default CurrentWorkTime;
+
+const getWorkedTime = (realTimeMinutes, currentMinutes) => {
+    const workedHours = Math.floor((realTimeMinutes + currentMinutes) / 60);
+    const workedMinutes =
+        (realTimeMinutes + currentMinutes - (currentMinutes % 15)) % 60;
+
+    return {
+        workedHours,
+        workedMinutes
+    };
+};
+
+const getRestTime = (restOfTimeMinutes, currentMinutes) => {
+    const restHours = Math.floor(
+        (restOfTimeMinutes - currentMinutes + (currentMinutes % 15)) / 60
+    );
+    const restMinutes =
+        (restOfTimeMinutes - currentMinutes + (currentMinutes % 15)) % 60;
+
+    return {
+        restHours,
+        restMinutes
+    };
+};

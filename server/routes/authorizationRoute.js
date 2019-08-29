@@ -18,7 +18,7 @@ router
         res.json({ _id });
     })
     .post((req, res) => {
-        // todo: у allowedLogins нет нигде использования в качестве массива
+        // todo: allowedLogins is not used anywhere
         const allowedLogins = serverConfig.authorization.allowedLogins;
         if (
             allowedLogins &&

@@ -1,13 +1,12 @@
 import mongoose from "mongoose";
 
 const Schema = mongoose.Schema;
-// const ObjectId = mongoose.Schema.Types.ObjectId;
 
-// todo: have to keep subtraction time in schema
 export const StudentSchema = new Schema({
     _id: String,
     name: String,
     password: String,
+
     workdays: [
         {
             type: String,
@@ -40,19 +39,14 @@ export const ContractSchema = new Schema({
         type: Number,
         required: true,
     },
-    // todo: ссылку на коллекцию workdays мы можем получить здесь через ее привязку к students
-    // workdays: [{
-    //     type: String,
-    //     ref: 'Workday'
-    // }],
+
     student: {
         type: String,
         ref: "Student",
     },
 });
 
-// todo: rename -> WorkdaysSchema
-export const WorkDaysSchema = new Schema({
+export const WorkdaysSchema = new Schema({
     _id: String,
     times: [
         {
@@ -60,6 +54,7 @@ export const WorkDaysSchema = new Schema({
             finishTime: Date,
         },
     ],
+
     student: {
         type: String,
         ref: "Student",

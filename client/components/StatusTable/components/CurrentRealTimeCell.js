@@ -32,6 +32,26 @@ const CurrentRealTimeCell = ({ className }) => {
     }, [lastStartTimestamp, lastFullTime]);
     useInterval(setIntervalHandler, clearIntervalHandler);
 
+    const {
+        currentRealTimeHours,
+        currentRealTimeMinutes
+    } = getCurrentRealTime(currentMinutes);
+
+    const currentRealTime = workTimeFormat(
+        currentRealTimeHours,
+        currentRealTimeMinutes
+    );
+
+    return (
+        <td className={className} data-test-component="CurrentRealTimeCell">
+            {currentRealTime}
+        </td>
+    );
+};
+
+export default CurrentRealTimeCell;
+
+const getCurrentRealTime = (currentMinutes) => {
     const currentFullTimeDuration = moment.duration(currentMinutes, "minutes");
     const currentRealTimeHours = Math.floor(
         currentFullTimeDuration.asHours()
@@ -39,12 +59,9 @@ const CurrentRealTimeCell = ({ className }) => {
     const currentRealTimeMinutes =
         currentFullTimeDuration.minutes() -
         currentFullTimeDuration.minutes() % 15;
-    const currentRealTime = workTimeFormat(
+
+    return {
         currentRealTimeHours,
         currentRealTimeMinutes
-    );
-
-    return <td className={className}>{currentRealTime}</td>;
+    }
 };
-
-export default CurrentRealTimeCell;

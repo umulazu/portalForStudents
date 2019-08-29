@@ -16,7 +16,7 @@ export default {
         nameAfterDate: "Апреля",
     },
     5: {
-        name: "Мая",
+        name: "Май",
         nameAfterDate: "Мая",
     },
     6: {
@@ -28,20 +28,20 @@ export default {
         nameAfterDate: "Июля",
     },
     8: {
-        name: "Январь",
-        nameAfterDate: "Января",
-    },
-    9: {
         name: "Август",
         nameAfterDate: "Августа",
     },
-    10: {
+    9: {
         name: "Сентябрь",
         nameAfterDate: "Сентября",
     },
-    11: {
+    10: {
         name: "Октябрь",
         nameAfterDate: "Октября",
+    },
+    11: {
+        name: "Ноябрь",
+        nameAfterDate: "Ноября",
     },
     12: {
         name: "Декабрь",

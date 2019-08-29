@@ -6,7 +6,6 @@ import { Router } from "react-router";
 import createBrowserHistory from "history/createBrowserHistory";
 import AppView from "./components/layout/AppView";
 import reducer from "./rootReducer";
-// todo: почему импортируется внутренняя функция, а не creator??
 import rootSaga from "./rootSaga";
 import { createStore, sagaMiddleware } from "./utilities/createStore";
 import { init } from "./rootActions";

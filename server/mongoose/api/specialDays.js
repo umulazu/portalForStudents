@@ -28,7 +28,7 @@ export const addPostponedDays = async list => {
     await PostponedDay.insertMany(postponedDays);
 };
 
-// todo: may be there is need in sending time interval??
+// todo: may be there is need in sending time interval
 export const getSpecialDays = async () => {
     const postponedDays = await PostponedDay.find({}, "_id").lean();
     const holidays = await Holiday.find({}, "_id").lean();

@@ -6,6 +6,16 @@ export const getWorkdays = state => state.workdaysContainer.workdays;
 
 const getCurrentDay = state => state.buttonPanel.currentDay;
 
+export const isStarted = state => {
+    if (state.buttonPanel.currentDay && state.buttonPanel.currentDay.timestamps.length) {
+        const timestamps = state.buttonPanel.currentDay.timestamps;
+        const lastTimestamp = timestamps[timestamps.length - 1];
+        return !lastTimestamp.finishTime;
+    } else {
+        return false;
+    }
+};
+
 export const getCurrentDayInfo = createSelector(
     [getCurrentDay],
     currentDay => {

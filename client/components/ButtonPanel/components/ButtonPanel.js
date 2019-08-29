@@ -36,7 +36,7 @@ const ButtonPanel = () => {
     const button_panel = classNames["button-panel"];
 
     return (
-        <div className={button_panel}>
+        <div className={button_panel} data-test-component="ButtonPanel">
             <button
                 onClick={handleStartClick}
                 className={startClasses}

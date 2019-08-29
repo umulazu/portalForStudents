@@ -21,11 +21,19 @@ const CurrentFullTimeCell = ({ className }) => {
     );
     useInterval(setIntervalHandler, clearIntervalHandler);
 
-    const currentFullTime = moment(lastFullTime, "HH:mm")
-        .add(currentWorkTimeMinutes, "minutes")
-        .format("H:mm");
+    const currentFullTime = getCurrentFullTime(lastFullTime, currentWorkTimeMinutes);
 
-    return <td className={className}>{currentFullTime}</td>;
+    return (
+        <td className={className} data-test-component="CurrentFullTimeCell">
+            {currentFullTime}
+        </td>
+    );
 };
 
 export default CurrentFullTimeCell;
+
+const getCurrentFullTime = (lastFullTime, currentWorkTimeMinutes) => {
+    return moment(lastFullTime, "HH:mm")
+        .add(currentWorkTimeMinutes, "minutes")
+        .format("H:mm");
+};

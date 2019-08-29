@@ -1,10 +1,10 @@
 import mongoose from "mongoose";
-import { WorkDaysSchema } from "../schemas";
+import { WorkdaysSchema } from "../schemas";
 import moment from "moment";
 import { Student } from "./student";
 import daysOfWeek from "../../../constants/daysOfWeek";
 
-const Workday = mongoose.model("Workday", WorkDaysSchema, "workdays");
+const Workday = mongoose.model("Workday", WorkdaysSchema, "workdays");
 
 export const addStartTime = studentId => {
     return (async () => {

@@ -6,9 +6,12 @@ import * as rootSelectors from "../../../rootSelectors";
 import workTimeFormat from "../../../utilities/workTimeFormat";
 import useInterval from "../../../hooks/useInterval";
 import getLastStartDiffNow from "../../../utilities/getLastStartDiffNow";
+import { getWorkStats } from "../utulities";
 
 const RestForCurrentDay = ({ className }) => {
-    const { restOfTimeMinutes } = useSelector(selectors.getNormForTheDay);
+    const workdays = useSelector(rootSelectors.getWorkdays);
+    const normOfMonth = useSelector(selectors.getNormOfMonth);
+    const { restOfTimeMinutes } = getWorkStats(workdays, normOfMonth);
     const countOfRestLabourDays = useSelector(
         selectors.getCountOfRestLabourDays
     );
@@ -36,17 +39,17 @@ const RestForCurrentDay = ({ className }) => {
         [setCurrentWorkTimeMinutes]
     );
     useInterval(setIntervalHandler, clearIntervalHandler);
-    const fullTime =
-        currentWorkTimeMinutes + moment.duration(lastFullTime).asMinutes();
 
-    const restOfTimePerDayAsMinutes =
-        Math.floor(restOfTimeMinutes / countOfRestLabourDays) - fullTime;
+    const restOfTimeArgs = {
+        lastFullTime,
+        currentWorkTimeMinutes,
+        restOfTimeMinutes,
+        countOfRestLabourDays
+    };
+    const {restOfTimePerDayHours,
+        restOfTimePerDayMinutes
+    } = getRestOfTime(restOfTimeArgs);
 
-    const restOfTimePerDayHours =
-        restOfTimePerDayAsMinutes >= 0
-            ? Math.floor(restOfTimePerDayAsMinutes / 60)
-            : "-" + Math.floor(-restOfTimePerDayAsMinutes / 60);
-    const restOfTimePerDayMinutes = Math.abs(restOfTimePerDayAsMinutes % 60);
     const restOfTimePerDayTime = workTimeFormat(
         restOfTimePerDayHours,
         restOfTimePerDayMinutes
@@ -60,3 +63,27 @@ const RestForCurrentDay = ({ className }) => {
 };
 
 export default RestForCurrentDay;
+
+const getRestOfTime = (args) => {
+    const {
+        lastFullTime,
+        currentWorkTimeMinutes,
+        restOfTimeMinutes,
+        countOfRestLabourDays
+    } = args;
+
+    const fullTime =
+        currentWorkTimeMinutes + moment.duration(lastFullTime).asMinutes();
+
+    const restOfTimePerDayAsMinutes =
+        Math.floor(restOfTimeMinutes / countOfRestLabourDays) - fullTime;
+    const restOfTimePerDayHours =
+        restOfTimePerDayAsMinutes >= 0
+            ? Math.floor(restOfTimePerDayAsMinutes / 60)
+            : "-" + Math.floor(-restOfTimePerDayAsMinutes / 60);
+    const restOfTimePerDayMinutes = Math.abs(restOfTimePerDayAsMinutes % 60);
+    return {
+        restOfTimePerDayHours,
+        restOfTimePerDayMinutes
+    }
+};
