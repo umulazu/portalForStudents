@@ -4,6 +4,12 @@
     top: 0;
     left: auto;
     right: 0;
+    font: {
+        family: "Roboto", sans-serif;
+        size: 20px;
+        weight: 400;
+    }
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
 
     background: $app_bar-background-color;
     color: whitesmoke;
@@ -11,4 +17,8 @@
     display: flex;
     flex-direction: row;
     align-items: center;
+
+    &__date-control {
+        padding: 5px 15px;
+    }
 }

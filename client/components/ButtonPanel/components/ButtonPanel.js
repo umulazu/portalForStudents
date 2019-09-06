@@ -42,14 +42,14 @@ const ButtonPanel = () => {
                 className={startClasses}
                 disabled={startSelected}
             >
-                Начать
+                НАЧАТЬ
             </button>
             <button
                 onClick={handleFinishClick}
                 className={finishClasses}
                 disabled={!startSelected}
             >
-                Закончить
+                ЗАКОНЧИТЬ
             </button>
         </div>
     );

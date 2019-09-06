@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 export const StudentSchema = new Schema({
     _id: String,
     name: String,
+    mentor: String,
     password: String,
 
     workdays: [

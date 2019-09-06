@@ -9,5 +9,5 @@ export const logoutRoutine = createRoutine("LOGOUT");
 export const showForm = createAction("SHOW_FORM");
 export const hideForm = createAction("HIDE_FORM");
 
-export const enterEmail = createAction("ENTER_EMAIL");
+export const enterLogin = createAction("ENTER_LOGIN");
 export const enterPassword = createAction("ENTER_PASSWORD");

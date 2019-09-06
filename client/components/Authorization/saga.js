@@ -1,6 +1,6 @@
 import { all, takeLatest, call, put } from "redux-saga/effects";
 import { loginRoutine, logoutRoutine } from "./actions";
-import { login, logout } from "../../api/authorizationService";
+import * as service from "../../api/authorizationService";
 
 export default function* authorizationSaga() {
     yield all([
@@ -11,9 +11,13 @@ export default function* authorizationSaga() {
 
 function* loginSaga(action) {
     try {
-        const { email, password } = action.payload;
-        const id = yield call(login, email, password);
-        yield put(loginRoutine.success({ name: id }));
+        const { login, password } = action.payload;
+        const {id, name} = yield call(service.login, login, password);
+
+        yield put(loginRoutine.success({
+            login: id,
+            name
+        }));
     } catch (error) {
         yield put(loginRoutine.failure({ error }));
     }
@@ -21,7 +25,7 @@ function* loginSaga(action) {
 
 function* logoutSaga() {
     try {
-        yield call(logout);
+        yield call(service.logout);
         yield put(logoutRoutine.success());
     } catch (error) {
         yield put(logoutRoutine.failure({ error }));

@@ -7,8 +7,9 @@ import workTimeFormat from "../../../utilities/workTimeFormat";
 import useInterval from "../../../hooks/useInterval";
 import getLastStartDiffNow from "../../../utilities/getLastStartDiffNow";
 import { getWorkStats } from "../utulities";
+import getClassNames from "../../../utilities/getClassnames";
 
-const RestForCurrentDay = ({ className }) => {
+const RestForCurrentDay = ({ className, classModifier }) => {
     const workdays = useSelector(rootSelectors.getWorkdays);
     const normOfMonth = useSelector(selectors.getNormOfMonth);
     const { restOfTimeMinutes } = getWorkStats(workdays, normOfMonth);
@@ -55,8 +56,12 @@ const RestForCurrentDay = ({ className }) => {
         restOfTimePerDayMinutes
     );
 
+    const classNames = getClassNames({
+        [className]: true,
+        [classModifier]: restOfTimePerDayHours[0] === "-",
+    });
     return (
-        <div className={className}>
+        <div className={classNames}>
             Остаток на текущий день: {restOfTimePerDayTime}
         </div>
     );

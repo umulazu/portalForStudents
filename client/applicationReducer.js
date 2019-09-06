@@ -4,7 +4,7 @@ import * as authorization from "./components/Authorization/actions";
 
 const initialState = {
     authorized: false,
-    name: "",
+    login: "",
 };
 
 const reducer = handleActions(
@@ -16,13 +16,13 @@ const reducer = handleActions(
         [authorization.loginRoutine.SUCCESS]: (state, { payload }) => ({
             ...state,
             authorized: true,
-            name: payload.name,
+            login: payload.login,
         }),
 
         [authorization.logoutRoutine.SUCCESS]: state => ({
             ...state,
             authorized: false,
-            name: "",
+            login: "",
         }),
     },
     initialState

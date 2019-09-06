@@ -1,0 +1,16 @@
+.right-column {
+  margin-left: auto;
+  margin-bottom: auto;
+
+  &__user-controls {
+    height: 30px;
+    float: right;
+    cursor: pointer;
+    border: 0;
+    background-color: transparent;
+    color: whitesmoke;
+  }
+  &__on-hover-component {
+    position: relative;
+  }
+}

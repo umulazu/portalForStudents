@@ -1,7 +1,7 @@
 import React from "react";
 import { takeLatest, call, put, select } from "redux-saga/effects";
 import { workdaysLoad } from "./actions";
-import { getDetailedWorkdaysForMonth } from "../../api/mongoService";
+import { getDetailedWorkdaysForMonth } from "../../api/studentInfoService";
 import { getStudentId } from "../../rootSelectors";
 
 export default function* statusTableSaga() {

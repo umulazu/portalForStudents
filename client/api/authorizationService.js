@@ -6,7 +6,10 @@ export const login = (_id, password) => {
             "Content-Type": "application/json",
         },
         body: JSON.stringify({ _id, password }),
-    }).then(response => response.json().then(data => data._id));
+    }).then(response => response.json().then(data => ({
+        id: data._id,
+        name: data.name
+    })));
 };
 
 export const logout = () => {

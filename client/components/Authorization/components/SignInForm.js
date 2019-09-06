@@ -2,19 +2,19 @@ import React, { useCallback } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import classNames from "./scss/SignInForm.module.scss";
 import * as selectors from "../selectors";
-import { loginRoutine, hideForm, enterEmail, enterPassword } from "../actions";
+import { loginRoutine, hideForm, enterLogin, enterPassword } from "../actions";
 
 const SignInForm = () => {
     const dispatch = useDispatch();
-    const email = useSelector(selectors.email);
+    const login = useSelector(selectors.login);
     const password = useSelector(selectors.password);
     const handleHideFormClick = () => {
         dispatch(hideForm());
     };
 
-    const handleChangedEmail = event => {
-        const email = event.target.value;
-        dispatch(enterEmail({ email }));
+    const handleChangedLogin = event => {
+        const login = event.target.value;
+        dispatch(enterLogin({ login }));
     };
 
     const handleChangedPassword = event => {
@@ -23,8 +23,8 @@ const SignInForm = () => {
     };
 
     const handleSignInClick = useCallback(
-        () => dispatch(loginRoutine.trigger({ email, password })),
-        [dispatch, email, password]
+        () => dispatch(loginRoutine.trigger({ login, password })),
+        [dispatch, login, password]
     );
 
     const {
@@ -37,17 +37,17 @@ const SignInForm = () => {
 
     return (
         <div className={signIn__form}>
-            <h3 className={signIn__headline}>LOGIN</h3>
+            <h3 className={signIn__headline}>Аутентификация</h3>
             <input
                 type="text"
-                placeholder="email"
-                onChange={handleChangedEmail}
-                value={email}
+                placeholder="Логин"
+                onChange={handleChangedLogin}
+                value={login}
                 className={signIn__input}
             />
             <input
                 type="text"
-                placeholder="password"
+                placeholder="Пароль"
                 onChange={handleChangedPassword}
                 value={password}
                 className={signIn__input}
@@ -55,13 +55,13 @@ const SignInForm = () => {
 
             <div className={signIn__button_panel}>
                 <button onClick={handleSignInClick} className={signIn__button}>
-                    Sign in
+                    Вход
                 </button>
                 <button
                     onClick={handleHideFormClick}
                     className={signIn__button}
                 >
-                    Cancel
+                    Отмена
                 </button>
             </div>
         </div>

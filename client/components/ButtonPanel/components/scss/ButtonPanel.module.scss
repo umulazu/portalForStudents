@@ -3,17 +3,26 @@
 .button-panel {
     display: flex;
     flex-direction: column;
-    justify-content: space-around;
+    padding: 10px;
 }
 
 .button {
-    height: 50px;
+    height: 37px;
+    width: 112px;
     cursor: pointer;
     border: 0;
-    color: whitesmoke;
+    color: $control_buttons-background-color;
     background-color: transparent;
+    font: {
+        family: "Roboto", sans-serif;
+        weight: normal;
+        size: 11px;
+    }
 
     &--highlighted {
         background-color: $control_buttons-background-color;
+        box-shadow: 0 0 10px rgba(0,0,0,0.5);
+        border-radius: 3px;
+        color: whitesmoke;
     }
 }

@@ -5,13 +5,14 @@ import {
     logoutRoutine,
     hideForm,
     showForm,
-    enterEmail,
+    enterLogin,
     enterPassword,
 } from "./actions";
 
 const initialState = {
     isShown: false,
-    email: "",
+    displayedLogin: "",
+    name: "",
     password: "",
 };
 
@@ -24,21 +25,23 @@ const reducer = handleActions(
         [loginRoutine.SUCCESS]: (state, { payload }) => ({
             ...state,
             isShown: false,
-            email: payload.name,
+            displayedLogin: payload.login,
+            name: payload.name,
             password: "",
         }),
 
         [loginRoutine.FAILURE]: state => ({
             ...state,
             isShown: true,
-            email: "",
+            name: "",
             password: "",
         }),
 
         [logoutRoutine.SUCCESS]: state => ({
             ...state,
             isShown: false,
-            email: "",
+            name: "",
+            displayedLogin: "",
             password: "",
         }),
 
@@ -49,22 +52,22 @@ const reducer = handleActions(
         [showForm]: state => ({
             ...state,
             isShown: true,
-            email: "",
+            name: "",
             password: "",
         }),
 
         [hideForm]: state => ({
             ...state,
             isShown: false,
-            email: "",
+            name: "",
             password: "",
         }),
 
-        [enterEmail]: (state, { payload }) => ({
+        [enterLogin]: (state, { payload }) => ({
             ...state,
             name: "",
             isShown: true,
-            email: payload.email,
+            displayedLogin: payload.login,
         }),
 
         [enterPassword]: (state, { payload }) => ({

@@ -30,6 +30,7 @@ const WorkStats = props => {
             </div>
             <CurrentWorkTime
                 className={classNames["work-stats__rest-for-current-day"]}
+                classModifier={classNames["work-stats__rest-for-current-day_over-the-norm"]}
             />
             <div>Норма за месяц: {normOfMonth}</div>
         </div>

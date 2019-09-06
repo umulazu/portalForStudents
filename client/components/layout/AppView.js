@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import AppBar from "./AppBar";
-import classNames from "./scss/Appview.module.scss";
+import classNames from "./scss/AppView.module.scss";
 import AppContent from "./AppContent";
 
 class AppView extends Component {

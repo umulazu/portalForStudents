@@ -1,6 +1,6 @@
 import { createSelector } from "reselect";
 
-export const getStudentId = state => state.application.name;
+export const getStudentId = state => state.application.login;
 
 export const getWorkdays = state => state.workdaysContainer.workdays;
 

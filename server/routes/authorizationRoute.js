@@ -34,12 +34,17 @@ router
             }
             if (user) {
                 passport.authenticate("local")(req, res, () => {
-                    res.json({ _id: req.user._id });
+                    res.json({
+                        _id: req.user._id,
+                        name: user.name
+                    });
                 });
             } else {
+                const nameOfStudent = `${req.body._id}Name`;
                 const student = new Student({
                     _id: req.body._id,
-                    name: `nameWith${req.body._id}`,
+                    // todo: get student's name, birthday, mentor from client when sign up
+                    name: nameOfStudent,
                 });
                 Student.register(student, req.body.password, error => {
                     if (error) {
@@ -47,7 +52,10 @@ router
                         return res.status(500).end();
                     }
                     passport.authenticate("local")(req, res, () => {
-                        res.json({ _id: req.user._id });
+                        res.json({
+                            _id: req.user._id,
+                            name: nameOfStudent,
+                        });
                     });
                 });
             }

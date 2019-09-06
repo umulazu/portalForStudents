@@ -1,0 +1,14 @@
+@import "../../../../constants/variables.module";
+
+.student-name {
+  color: $week_row-background-color;
+
+  &:hover {
+    color: $control_buttons-background-color;
+    cursor: help;
+  }
+
+  &__active-mark_started {
+    color: red;
+  }
+}

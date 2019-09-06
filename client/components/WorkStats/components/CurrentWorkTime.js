@@ -9,7 +9,7 @@ import getLastStartDiffNow from "../../../utilities/getLastStartDiffNow";
 import moment from "moment";
 import { getWorkStats } from "../utulities";
 
-const CurrentWorkTime = ({ className }) => {
+const CurrentWorkTime = ({ className, classModifier }) => {
     const workdays = useSelector(rootSelectors.getWorkdays);
     const normOfMonth = useSelector(selectors.getNormOfMonth);
     const { realTimeMinutes, restOfTimeMinutes } = getWorkStats(workdays, normOfMonth);
@@ -55,7 +55,7 @@ const CurrentWorkTime = ({ className }) => {
 
     return (
         <>
-            <RestForCurrentDay className={className} />
+            <RestForCurrentDay className={className} classModifier={classModifier} />
             <div>Остаток до конца месяца: {restTime}</div>
             <div>&nbsp;</div>
             <div>Отработанное время за месяц: {workedTime}</div>

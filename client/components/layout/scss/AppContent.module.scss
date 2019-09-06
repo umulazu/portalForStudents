@@ -1,9 +1,9 @@
 .app-content {
-    background: white;
     display: flex;
     align-items: flex-end;
     flex-wrap: wrap-reverse;
     justify-content: center;
+    border-radius: 2px;
 
     &__main {
         width: 50%;
