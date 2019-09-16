@@ -1,10 +1,12 @@
 import { handleActions } from "redux-actions";
 import * as application from "./applicationActions";
 import * as authorization from "./components/Authorization/actions";
+import * as navBar from "./components/NavBar/actions";
 
 const initialState = {
     authorized: false,
     login: "",
+    pageNumber: 1
 };
 
 const reducer = handleActions(
@@ -24,6 +26,11 @@ const reducer = handleActions(
             authorized: false,
             login: "",
         }),
+
+        [navBar.changePage.SUCCESS]: (state, { payload }) => ({
+            ...state,
+            pageNumber: payload.pageNumber
+        })
     },
     initialState
 );

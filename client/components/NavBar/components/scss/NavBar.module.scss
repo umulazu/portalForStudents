@@ -14,15 +14,12 @@
     cursor: pointer;
 
     &:hover {
-      //color: $day_row-background-color;
-      //border-bottom: 2px solid $day_row-background-color;
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     }
 
     &_focused {
       color: $control_buttons-background-color;
       border-bottom: 2px solid $control_buttons-background-color;
-      //box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
     }
   }
 }

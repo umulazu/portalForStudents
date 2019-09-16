@@ -1,15 +1,19 @@
 import React, { useCallback, useState } from "react";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import classNames from "./scss/NavBar.module.scss";
 import * as selectors from "../selectors";
 import getClassNames from "../../../utilities/getClassnames";
+import { changePage } from "../actions";
 
 const NavBar = () => {
+    const dispatch = useDispatch();
     const authorized = useSelector(selectors.isAuthorized);
-    const [focusedIndexOfElement, setFocusedIndexOfElement ] = useState(0);
+    const pageNumber = useSelector(selectors.getPageNumber);
+    const [focusedIndexOfElement, setFocusedIndexOfElement ] = useState(pageNumber);
     const handleClick = useCallback((index) => {
+        dispatch(changePage({ index }));
         setFocusedIndexOfElement(index);
-    }, []);
+    }, [dispatch]);
 
     if (!authorized) {
         return null;
@@ -22,29 +26,6 @@ const NavBar = () => {
         "ЗАМЕТКИ"
     ];
     const menuItems = modifyMenuItems(rawMenuItems, focusedIndexOfElement, handleClick);
-
-    // const menuItems = [
-    //     "ОФИС",
-    //     "МОЕ ВРЕМЯ",
-    //     "МОИ КОНТРАКТЫ",
-    //     "ЗАМЕТКИ"
-    // ].map((item, index)=> {
-    //     const classes = getClassNames({
-    //         [classNames["list__list-item"]]: true,
-    //         [classNames["list__list-item_focused"]]:
-    //             focusedIndexOfElement === index,
-    //     });
-    //     return (
-    //         <li className={classes}
-    //             onClick={
-    //                 (e) => handleClick(index, e)
-    //             }
-    //             key={index}
-    //         >
-    //             {item}
-    //         </li>
-    //     );
-    // });
 
     return (
         <div className={classNames["nav-bar"]}>

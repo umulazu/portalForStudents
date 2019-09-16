@@ -9,18 +9,24 @@ import * as actions from "../WorkdaysContainer/actions";
 export class AppContent extends React.Component {
     render() {
         const authorized = this.props.authorized;
+        const pageNumber = this.props.pageNumber;
 
         if (!authorized) {
             return null;
         } else {
             return (
                 <div className={classNames["app-content"]} data-test-component="AppContent">
-                    <WorkdaysContainer>
-                        <StatusTable className={classNames["app-content__main"]} />
-                        <WorkStats
-                            className={classNames["app-content__right-column"]}
-                        />
-                    </WorkdaysContainer>
+                    {
+                        pageNumber === 1 && <WorkdaysContainer>
+                            <StatusTable className={classNames["app-content__main"]} />
+                            <WorkStats
+                                className={classNames["app-content__right-column"]}
+                            />
+                        </WorkdaysContainer>
+                    }
+                    {
+                        pageNumber === 2 && <div>new page</div>
+                    }
                 </div>
             );
         }
@@ -30,6 +36,7 @@ export class AppContent extends React.Component {
 export default connect(
     state => ({
         authorized: state.application.authorized,
+        pageNumber: state.application.pageNumber
     }),
     actions
 )(AppContent);
