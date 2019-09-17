@@ -5,6 +5,7 @@ import buttonPanel from "./components/ButtonPanel/reducer";
 import workdaysContainer from "./components/WorkdaysContainer/reducer";
 import workStats from "./components/WorkStats/reducer";
 import studentInfo from "./components/StudentInfo/reducer";
+import contractInfo from "./components/ContractInfo/reducer";
 
 export default combineReducers({
     application,
@@ -12,5 +13,6 @@ export default combineReducers({
     buttonPanel,
     workdaysContainer,
     workStats,
-    studentInfo
+    studentInfo,
+    contractInfo
 });

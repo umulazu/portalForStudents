@@ -5,6 +5,7 @@ import workdaysContainerSaga from  "./components/WorkdaysContainer/saga";
 import workStatsSaga from "./components/WorkStats/saga";
 import studentInfoSaga from "./components/StudentInfo/saga";
 import navBarSaga from "./components/NavBar/saga";
+import contractInfoSaga from "./components/ContractInfo/saga";
 
 const creator = ({ history }) => {
     function* rootSaga() {
@@ -14,7 +15,8 @@ const creator = ({ history }) => {
             workdaysContainerSaga(),
             workStatsSaga(),
             studentInfoSaga(),
-            navBarSaga()
+            navBarSaga(),
+            contractInfoSaga(),
         ]);
     }
 

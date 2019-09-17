@@ -18,6 +18,22 @@ export const getContractById = async contractId => {
     return Contract.findOne({ _id: contractId }).exec();
 };
 
+export const getContractsByStudentId = studentId => {
+    return (async () => {
+        const pattern = `^${studentId}\\d+$`;
+
+        const contracts = await Contract.find(
+            { _id: { $regex: pattern } },
+        );
+
+        return contracts.sort((workday1, workday2) => {
+                return workday1.endingDay < workday2.endingDay;
+        });
+    })();
+};
+
+
+
 export const getActiveContractByStudent = async _id => {
     return Contract.findOne({ student: _id, status: "Active" }).exec();
 };

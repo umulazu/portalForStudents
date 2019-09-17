@@ -27,7 +27,7 @@ const reducer = handleActions(
             login: "",
         }),
 
-        [navBar.changePage.SUCCESS]: (state, { payload }) => ({
+        [navBar.changePageRoutine.SUCCESS]: (state, { payload }) => ({
             ...state,
             pageNumber: payload.pageNumber
         })

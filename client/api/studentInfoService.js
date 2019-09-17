@@ -18,7 +18,7 @@ export const getStudent = _id => {
     });
 };
 
-export const getWorkdaysFoMronth = _id => {
+export const getWorkdaysForMonth = _id => {
     return fetch("/workdays", {
         method: "POST",
         credentials: "include",

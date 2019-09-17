@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import classNames from "./scss/NavBar.module.scss";
 import * as selectors from "../selectors";
 import getClassNames from "../../../utilities/getClassnames";
-import { changePage } from "../actions";
+import { changePageRoutine } from "../actions";
 
 const NavBar = () => {
     const dispatch = useDispatch();
@@ -11,7 +11,7 @@ const NavBar = () => {
     const pageNumber = useSelector(selectors.getPageNumber);
     const [focusedIndexOfElement, setFocusedIndexOfElement ] = useState(pageNumber);
     const handleClick = useCallback((index) => {
-        dispatch(changePage({ index }));
+        dispatch(changePageRoutine({ index }));
         setFocusedIndexOfElement(index);
     }, [dispatch]);
 

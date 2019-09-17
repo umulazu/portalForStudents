@@ -40,6 +40,8 @@ export const ContractSchema = new Schema({
         type: Number,
         required: true,
     },
+    mentor : String,
+    task: String,
 
     student: {
         type: String,
