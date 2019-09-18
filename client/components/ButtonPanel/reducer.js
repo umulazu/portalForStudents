@@ -72,6 +72,7 @@ const getLastDayFromWorkdays = (workdays) => {
 
 const isLastStartFinished = (workdays) => {
     const currentDay = getLastDayFromWorkdays(workdays);
+
     if (currentDay) {
         const timestamps = currentDay.timestamps;
         return !!timestamps[timestamps.length - 1].finishTime;

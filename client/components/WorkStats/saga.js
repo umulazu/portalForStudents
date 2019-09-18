@@ -1,6 +1,6 @@
 import React from "react";
-import { takeLatest, call, put, select } from "redux-saga/effects";
-import { statsLoad } from "./actions";
+import { takeLatest, call, put, select, all } from "redux-saga/effects";
+import { statsLoad, statsClose } from "./actions";
 import { getSpecialDays } from "../../api/calendarService";
 import { getHoursPerDay } from "../../api/contractService";
 import { getStudentId } from "../../rootSelectors";
@@ -9,6 +9,10 @@ import moment from "moment";
 
 export default function* workStatsSaga() {
     yield takeLatest(statsLoad.TRIGGER, startSaga);
+    yield all([
+        takeLatest(statsLoad.TRIGGER, startSaga),
+        takeLatest(statsClose.TRIGGER, finishSaga),
+    ]);
 }
 
 function* startSaga() {
@@ -70,3 +74,14 @@ const getCountOfLabourDays = (firstDayOfPeriod, lastDayOfPeriod, specialDays) =>
     }
     return countOfLabourDays;
 };
+
+function* finishSaga() {
+    try {
+        yield put(statsClose.request());
+
+        yield put(statsClose.success());
+    } catch (error) {
+        console.error(error);
+        yield put(statsClose.failure());
+    }
+}

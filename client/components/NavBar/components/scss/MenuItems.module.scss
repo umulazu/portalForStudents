@@ -1,0 +1,11 @@
+@import "../../../../constants/variables.module";
+
+.menu-items {
+  padding: 14px;
+  cursor: pointer;
+
+  &_focused {
+    color: $control_buttons-background-color;
+    border-bottom: 2px solid $control_buttons-background-color;
+  }
+}

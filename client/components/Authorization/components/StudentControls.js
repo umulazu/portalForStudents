@@ -4,7 +4,7 @@ import SignInDialog from "./SignInDialog";
 import * as selectors from "../selectors";
 import { logoutRoutine } from "../actions";
 
-const UserControls = ({className}) => {
+const StudentControls = ({className}) => {
     const dispatch = useDispatch();
     const handleLogOutClick = useCallback(
         () => dispatch(logoutRoutine.trigger()),
@@ -23,4 +23,4 @@ const UserControls = ({className}) => {
     );
 };
 
-export default UserControls;
+export default StudentControls;

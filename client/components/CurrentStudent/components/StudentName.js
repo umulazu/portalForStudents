@@ -6,12 +6,8 @@ import * as rootSelectors from "../../../rootSelectors";
 import getClassNames from "../../../utilities/getClassnames";
 
 const StudentName = () => {
-    const authorized = useSelector(selectors.isAuthorized);
     const name = useSelector(selectors.getNameOfStudent);
     const isStarted = useSelector(rootSelectors.isStarted);
-    if (!authorized) {
-        return null;
-    }
 
     const markClasses = getClassNames({
         [classNames["student-name__active-mark_started"]]: isStarted,

@@ -1,0 +1,18 @@
+@import "../../../../constants/variables.module";
+
+.head-cell {
+  font: {
+    family: "Roboto", sans-serif;
+    size: 0.85em;
+    weight: normal;
+  }
+  padding: 5px;
+  height: 40px;
+  background: white;
+  border-bottom: 1px solid $table-border-color;
+
+  &__contract-id {
+    text-align: left;
+    padding: 5px 15px;
+  }
+}

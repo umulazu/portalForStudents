@@ -1,6 +1,6 @@
 @import "../../../constants/variables.module";
 
-.appbar {
+.app-bar {
     top: 0;
     left: auto;
     right: 0;
@@ -20,5 +20,10 @@
 
     &__date-control {
         padding: 5px 15px;
+    }
+
+    &__current-student {
+        margin-left: auto;
+        margin-bottom: auto;
     }
 }

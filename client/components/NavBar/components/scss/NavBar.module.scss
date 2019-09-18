@@ -10,16 +10,9 @@
 .list {
   &__list-item {
     display: inline;
-    padding: 14px;
-    cursor: pointer;
 
     &:hover {
       box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
-    }
-
-    &_focused {
-      color: $control_buttons-background-color;
-      border-bottom: 2px solid $control_buttons-background-color;
     }
   }
 }

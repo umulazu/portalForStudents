@@ -1,7 +1,7 @@
 import React, { useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
 import classNames from "./scss/WorkStats.module.scss";
-import { statsLoad } from "../actions";
+import { statsLoad, statsClose } from "../actions";
 import * as selectors from "../selectors";
 import * as rootSelectors from "../../../rootSelectors";
 import getClassNames from "../../../utilities/getClassnames";
@@ -13,6 +13,10 @@ const WorkStats = props => {
     const normOfMonth = useSelector(selectors.getNormOfMonth);
     useEffect(() => {
         dispatch(statsLoad.trigger());
+
+        return () => {
+            dispatch(statsClose.trigger());
+        }
     }, [dispatch, isStarted]);
     if (!normOfMonth) {
         return null;

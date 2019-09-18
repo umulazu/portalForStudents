@@ -1,11 +1,15 @@
 import React, { useEffect } from "react";
-import { workdaysLoad } from "../../WorkdaysContainer/actions";
+import { workdaysLoad, workdaysContainerClose } from "../../WorkdaysContainer/actions";
 import { useDispatch } from "react-redux";
 
 const WorkdaysContainer = props => {
     const dispatch = useDispatch();
     useEffect(() => {
         dispatch(workdaysLoad.trigger());
+
+        return () => {
+            dispatch(workdaysContainerClose.trigger());
+        }
     }, [dispatch]);
 
     return <React.Fragment>{props.children}</React.Fragment>;

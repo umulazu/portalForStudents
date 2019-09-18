@@ -1,23 +1,13 @@
-import React, { useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import React from "react";
+import {  useSelector } from "react-redux";
 import classNames from "./scss/StudentCard.module.scss";
 import * as selectors from "../selectors";
-import * as rootSelectors from "../../../rootSelectors";
-import { loadStudentRoutine } from "../actions";
 import getFullDate from "../../../utilities/getFullDate";
 
 const StudentCard = () => {
-    const dispatch = useDispatch();
-
-    const authorized = useSelector(selectors.isAuthorized);
-    const login = useSelector(rootSelectors.getStudentId);
     const { mentor, birthday } = useSelector(selectors.getStudentInfo);
-    useEffect(
-        () => {
-            authorized && login && dispatch(loadStudentRoutine.trigger({ login }))
-        }, [login, dispatch, authorized]
-    );
-    if (!authorized || !(mentor && birthday)) {
+
+    if (!(mentor && birthday)) {
         return null;
     }
 
