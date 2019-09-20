@@ -19,3 +19,14 @@ export const finish = _id => {
         body: JSON.stringify({ _id }),
     }).then(response => response.json());
 };
+
+export const getCurrentDay = _id => {
+    return fetch("/currentDay", {
+        method: "POST",
+        credentials: "include",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ _id }),
+    }).then(response => response.json());
+};

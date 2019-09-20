@@ -1,27 +1,30 @@
 import React from "react";
 import getClassNames from "../../../utilities/getClassnames";
 import classNames from "./scss/MenuItems.module.scss";
+import { NavLink } from "react-router-dom";
 
-const MenuItems = ({
-    rawMenuItems,
-    focusedIndexOfElement,
-    handleClick,
-    className,
-}) =>
+const MenuItems = ({ rawMenuItems, className }) =>
     rawMenuItems.map((item, index) => {
-        const classes = getClassNames({
+        const liClasses = getClassNames({
             [className]: true,
-            [classNames["menu-items"]]: true,
-            [classNames["menu-items_focused"]]:
-                focusedIndexOfElement === index,
         });
+
+        const navLinkClasses = getClassNames({
+            [className]: true,
+            [classNames["empty"]]: true,
+            [classNames["menu-items"]]: true,
+        });
+
         return (
-            <li
-                className={classes}
-                onClick={e => handleClick(index, e)}
-                key={index}
-            >
-                {item}
+            <li className={liClasses} key={index}>
+                <NavLink
+                    exact
+                    to={item.path}
+                    className={navLinkClasses}
+                    activeClassName={classNames["active"]}
+                >
+                    {item.title}
+                </NavLink>
             </li>
         );
     });

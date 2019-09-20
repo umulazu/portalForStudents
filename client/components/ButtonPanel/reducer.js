@@ -1,10 +1,17 @@
 import { handleActions } from "redux-actions";
-import { init, startRoutine, finishRoutine } from "./actions";
-import { workdaysContainerClose, workdaysLoad } from "../WorkdaysContainer/actions";
+import {
+    init,
+    startRoutine,
+    finishRoutine,
+    loadCurrentDayRoutine,
+} from "./actions";
+import {
+    workdaysLoad,
+} from "../WorkdaysContainer/actions";
 import moment from "moment";
+import * as authorization from "../Authorization/actions";
 
 const initialState = {
-    startSelected: false,
     currentDay: null,
 };
 
@@ -14,9 +21,19 @@ const reducer = handleActions(
             ...initialState,
         }),
 
+        [loadCurrentDayRoutine.REQUEST]: state => ({
+            ...state,
+        }),
+        [loadCurrentDayRoutine.SUCCESS]: (state, { payload }) => ({
+            ...state,
+            currentDay: payload.currentDay,
+        }),
+        [loadCurrentDayRoutine.FAILURE]: state => ({
+            ...state,
+        }),
+
         [startRoutine.REQUEST]: state => ({
             ...state,
-            startSelected: true,
         }),
         [startRoutine.SUCCESS]: (state, { payload }) => ({
             ...state,
@@ -24,12 +41,10 @@ const reducer = handleActions(
         }),
         [startRoutine.FAILURE]: state => ({
             ...state,
-            startSelected: false,
         }),
 
         [finishRoutine.REQUEST]: state => ({
             ...state,
-            startSelected: false,
         }),
         [finishRoutine.SUCCESS]: (state, { payload }) => ({
             ...state,
@@ -37,17 +52,15 @@ const reducer = handleActions(
         }),
         [finishRoutine.FAILURE]: state => ({
             ...state,
-            startSelected: true,
         }),
 
         [workdaysLoad.SUCCESS]: (state, { payload }) => ({
             ...state,
             currentDay: getLastDayFromWorkdays(payload.workdays),
-            startSelected: !isLastStartFinished(payload.workdays),
         }),
-        [workdaysContainerClose.SUCCESS]: state => ({
+
+        [authorization.logoutRoutine.SUCCESS]: state => ({
             ...state,
-            startSelected: false,
             currentDay: null,
         }),
     },
@@ -67,16 +80,5 @@ const getLastDayFromWorkdays = (workdays) => {
         return lastWorkday;
     } else {
         return null;
-    }
-};
-
-const isLastStartFinished = (workdays) => {
-    const currentDay = getLastDayFromWorkdays(workdays);
-
-    if (currentDay) {
-        const timestamps = currentDay.timestamps;
-        return !!timestamps[timestamps.length - 1].finishTime;
-    } else {
-        return true;
     }
 };

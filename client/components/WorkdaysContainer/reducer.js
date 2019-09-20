@@ -22,18 +22,11 @@ const reducer = handleActions(
         }),
         [workdaysLoad.FAILURE]: state => ({
             ...state,
-            workdays: [],
         }),
 
-        [workdaysContainerClose.REQUEST]: state => ({
-            ...state,
-        }),
-        [workdaysContainerClose.SUCCESS]: state => ({
+        [workdaysContainerClose]: state => ({
             ...state,
             workdays: [],
-        }),
-        [workdaysContainerClose.FAILURE]: state => ({
-            ...state,
         }),
 
         [startRoutine.SUCCESS]: (state, { payload }) => ({

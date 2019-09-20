@@ -4,7 +4,6 @@ import buttonPanelSaga from "./components/ButtonPanel/saga";
 import workdaysContainerSaga from  "./components/WorkdaysContainer/saga";
 import workStatsSaga from "./components/WorkStats/saga";
 import studentInfoSaga from "./components/CurrentStudent/saga";
-import navBarSaga from "./components/NavBar/saga";
 import contractInfoSaga from "./components/ContractInfo/saga";
 
 const creator = ({ history }) => {
@@ -15,7 +14,6 @@ const creator = ({ history }) => {
             workdaysContainerSaga(),
             workStatsSaga(),
             studentInfoSaga(),
-            navBarSaga(),
             contractInfoSaga(),
         ]);
     }

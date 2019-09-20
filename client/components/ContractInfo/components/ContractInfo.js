@@ -1,5 +1,5 @@
 import React, { useEffect } from "react";
-import { contractsLoadRoutine } from "../actions";
+import { contractsLoadRoutine, contractsCloseRoutine } from "../actions";
 import { useDispatch, useSelector } from "react-redux";
 import * as selectors from "../selectors";
 import classNames from "./scss/ContractInfo.module.scss";
@@ -12,7 +12,10 @@ const ContractInfo = ({ className }) => {
     const contracts = useSelector(selectors.getContracts);
 
     useEffect(() => {
-        dispatch(contractsLoadRoutine());
+        dispatch(contractsLoadRoutine.trigger());
+        return () => {
+            dispatch(contractsCloseRoutine());
+        }
     }, [dispatch]);
 
     const headers = [

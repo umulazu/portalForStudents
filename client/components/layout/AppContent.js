@@ -6,31 +6,37 @@ import classNames from "./scss/AppContent.module.scss";
 import { connect } from "react-redux";
 import * as actions from "../WorkdaysContainer/actions";
 import ContractInfo from "../ContractInfo/components/ContractInfo";
+import { Switch, Route } from "react-router";
 
 export class AppContent extends React.Component {
     render() {
         const authorized = this.props.authorized;
-        const pageNumber = this.props.pageNumber;
 
-        const CONTENT_PAGES = [
-            <div>
-                офис
-            </div>,
+        const workdayContainer = () => (
             <WorkdaysContainer>
                 <StatusTable className={classNames["app-content__main"]} />
                 <WorkStats
                     className={classNames["app-content__right-column"]}
                 />
-            </WorkdaysContainer>,
-            <ContractInfo className={classNames["app-content__contract-info"]} />,
-        ];
+            </WorkdaysContainer>
+        );
+        const contractInfo = () => (
+            <ContractInfo
+                className={classNames["app-content__contract-info"]}
+            />
+        );
 
         if (!authorized) {
             return null;
         } else {
             return (
                 <div className={classNames["app-content"]} data-test-component="AppContent">
-                    {CONTENT_PAGES[pageNumber]}
+                    <Switch>
+                        <Route exact path="/" component={workdayContainer} />
+                        <Route path="/contracts" component={contractInfo } />
+                        <Route path="/office" component={ () => ("office") } />
+                        <Route path="/remarks" component={ () => ("remarks") } />
+                    </Switch>
                 </div>
             );
         }
@@ -40,7 +46,6 @@ export class AppContent extends React.Component {
 export default connect(
     state => ({
         authorized: state.application.authorized,
-        pageNumber: state.application.pageNumber
     }),
     actions
 )(AppContent);

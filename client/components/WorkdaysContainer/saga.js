@@ -1,17 +1,14 @@
 import React from "react";
-import { takeLatest, call, put, select, all } from "redux-saga/effects";
-import { workdaysLoad, workdaysContainerClose } from "./actions";
+import { takeLatest, call, put, select } from "redux-saga/effects";
+import { workdaysLoad } from "./actions";
 import { getDetailedWorkdaysForMonth } from "../../api/studentInfoService";
 import { getStudentId } from "../../rootSelectors";
 
 export default function* statusTableSaga() {
-    yield all([
-        takeLatest(workdaysLoad.TRIGGER, startSaga),
-        takeLatest(workdaysContainerClose.TRIGGER, finishSaga),
-    ]);
+    yield takeLatest(workdaysLoad.TRIGGER, loadStatusTableSaga);
 }
 
-function* startSaga() {
+function* loadStatusTableSaga() {
     try {
         const _id = yield select(getStudentId);
         yield put(workdaysLoad.request());
@@ -21,16 +18,5 @@ function* startSaga() {
     } catch (error) {
         console.error(error);
         yield put(workdaysLoad.failure());
-    }
-}
-
-function* finishSaga() {
-    try {
-        yield put(workdaysContainerClose.request());
-
-        yield put(workdaysContainerClose.success());
-    } catch (error) {
-        console.error(error);
-        yield put(workdaysContainerClose.failure());
     }
 }

@@ -22,20 +22,12 @@ const reducer = handleActions(
         }),
         [statsLoad.FAILURE]: state => ({
             ...state,
-            normOfMonth: 0,
-            countOfRestLabourDays: 0,
         }),
 
-        [statsClose.REQUEST]: state => ({
-            ...state,
-        }),
-        [statsClose.SUCCESS]: state => ({
+        [statsClose]: state => ({
             ...state,
             normOfMonth: 0,
             countOfRestLabourDays: 0,
-        }),
-        [statsClose.FAILURE]: state => ({
-            ...state,
         }),
     },
     initialState

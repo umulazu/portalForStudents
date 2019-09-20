@@ -15,9 +15,10 @@ const WorkStats = props => {
         dispatch(statsLoad.trigger());
 
         return () => {
-            dispatch(statsClose.trigger());
+            dispatch(statsClose());
         }
     }, [dispatch, isStarted]);
+
     if (!normOfMonth) {
         return null;
     }

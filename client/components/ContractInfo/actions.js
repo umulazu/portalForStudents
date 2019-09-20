@@ -4,3 +4,4 @@ import { createAction } from "redux-actions";
 export const init = createAction("INIT");
 
 export const contractsLoadRoutine = createRoutine("CONTRACTS_LOAD");
+export const contractsCloseRoutine = createAction("CONTRACTS_CLOSE");

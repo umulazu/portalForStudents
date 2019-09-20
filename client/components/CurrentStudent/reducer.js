@@ -3,6 +3,7 @@ import {
     init,
     loadStudentRoutine
 } from "./actions";
+import * as authorization from "../Authorization/actions";
 
 const initialState = {
     mentor: "",
@@ -15,6 +16,10 @@ const reducer = handleActions(
             ...initialState,
         }),
 
+        [loadStudentRoutine.REQUEST]: state => ({
+            ...state,
+        }),
+
         [loadStudentRoutine.SUCCESS]: (state, { payload }) => ({
             ...state,
             mentor: payload.mentor,
@@ -22,6 +27,10 @@ const reducer = handleActions(
         }),
 
         [loadStudentRoutine.FAILURE]: state => ({
+            ...state,
+        }),
+
+        [authorization.logoutRoutine.SUCCESS]: state => ({
             ...state,
             mentor: "",
             birthday: ""

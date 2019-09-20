@@ -1,12 +1,14 @@
-import React, { useCallback } from "react";
+import React, { useCallback, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { startRoutine, finishRoutine } from "../actions";
+import { startRoutine, finishRoutine, loadCurrentDayRoutine } from "../actions";
 import getClassNames from "../../../utilities/getClassnames";
 import classNames from "./scss/ButtonPanel.module.scss";
 import * as selectors from "../selectors";
+import * as rootSelectors from "../../../rootSelectors";
 
 const ButtonPanel = () => {
     const dispatch = useDispatch();
+
     const handleStartClick = useCallback(
         () => dispatch(startRoutine.trigger()),
         [dispatch]
@@ -17,7 +19,12 @@ const ButtonPanel = () => {
     );
 
     const authorized = useSelector(selectors.isAuthorized);
-    const startSelected = useSelector(selectors.isStartSelected);
+    const startSelected = useSelector(rootSelectors.isStarted);
+
+    useEffect(() => {
+        authorized && dispatch(loadCurrentDayRoutine.trigger());
+    });
+
     if (!authorized) {
         return null;
     }

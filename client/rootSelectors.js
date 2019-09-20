@@ -4,8 +4,6 @@ export const getStudentId = state => state.application.login;
 
 export const getWorkdays = state => state.workdaysContainer.workdays;
 
-const getCurrentDay = state => state.buttonPanel.currentDay;
-
 export const isStarted = state => {
     if (state.buttonPanel.currentDay && state.buttonPanel.currentDay.timestamps.length) {
         const timestamps = state.buttonPanel.currentDay.timestamps;
@@ -15,6 +13,8 @@ export const isStarted = state => {
         return false;
     }
 };
+
+const getCurrentDay = state => state.buttonPanel.currentDay;
 
 export const getCurrentDayInfo = createSelector(
     [getCurrentDay],

@@ -6,8 +6,11 @@ import configureMockStore from "redux-mock-store";
 
 import ButtonPanel from "../../../client/components/ButtonPanel/components/ButtonPanel";
 import * as selectors from "../../../client/components/ButtonPanel/selectors";
+import * as rootSelectors from "../../../client/rootSelectors";
 
 jest.mock("../../../client/components/ButtonPanel/selectors");
+jest.mock("../../../client/rootSelectors");
+
 const middlewares = [];
 const mockStore = configureMockStore(middlewares);
 
@@ -31,6 +34,7 @@ function setup() {
 describe("ButtonPanel conditional rendering", () => {
     it('should render if authorized', () => {
         selectors.isAuthorized.mockReturnValue(true);
+        rootSelectors.isStarted.mockReturnValue(true);
         const { queryAllByTestId } = setup();
 
         const ButtonPanelDiv = queryAllByTestId("ButtonPanel");
@@ -39,6 +43,7 @@ describe("ButtonPanel conditional rendering", () => {
 
     it('should not render if not authorized', () => {
         selectors.isAuthorized.mockReturnValue(false);
+        rootSelectors.isStarted.mockReturnValue(true);
         const { queryAllByTestId } = setup();
 
         const ButtonPanelDiv = queryAllByTestId("ButtonPanel");

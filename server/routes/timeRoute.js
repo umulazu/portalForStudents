@@ -1,6 +1,6 @@
 import express from "express";
 import authenticationCheckMiddleware from "../middlewares/authenticationCheck";
-import { addStartTime, addFinishTime } from "../mongoose/api/workdays";
+import { addStartTime, addFinishTime, getCurrentDay } from "../mongoose/api/workdays";
 
 const router = express.Router();
 
@@ -20,6 +20,16 @@ router
     .post((req, res) => {
         (async () => {
             const currentDay = await addFinishTime(req.body._id);
+            res.json(currentDay);
+        })();
+    });
+
+router
+    .route("/currentDay")
+    .all(authenticationCheckMiddleware)
+    .post((req, res) => {
+        (async () => {
+            const currentDay = await getCurrentDay(req.body._id);
             res.json(currentDay);
         })();
     });

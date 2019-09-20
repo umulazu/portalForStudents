@@ -1,8 +1,10 @@
 import { handleActions } from "redux-actions";
 import {
     init,
-    contractsLoadRoutine
+    contractsLoadRoutine,
+    contractsCloseRoutine
 } from "./actions";
+import * as authorization from "../Authorization/actions";
 
 const initialState = {
     contracts: []
@@ -22,6 +24,16 @@ const reducer = handleActions(
         [contractsLoadRoutine.FAILURE]: state => ({
             ...state,
             contracts: [],
+        }),
+
+        [contractsCloseRoutine]: state => ({
+            ...state,
+            contracts: [],
+        }),
+
+        [authorization.logoutRoutine.SUCCESS]: state => ({
+            ...state,
+            contracts: []
         }),
     },
     initialState

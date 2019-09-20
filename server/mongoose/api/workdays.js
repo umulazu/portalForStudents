@@ -6,6 +6,23 @@ import daysOfWeek from "../../../constants/daysOfWeek";
 
 const Workday = mongoose.model("Workday", WorkdaysSchema, "workdays");
 
+export const getCurrentDay = studentId => {
+    return (async () => {
+        // now in UTC
+        const now = moment();
+        const workdayId = `${studentId}${now.format("YYYYMMMMD")}`;
+        try {
+            const currentDay = await Workday.findOne(
+                { _id: workdayId, student: studentId }
+            );
+
+            return currentDay && dayModification(currentDay);
+        } catch (error) {
+            throw error;
+        }
+    })();
+};
+
 export const addStartTime = studentId => {
     return (async () => {
         // now in UTC

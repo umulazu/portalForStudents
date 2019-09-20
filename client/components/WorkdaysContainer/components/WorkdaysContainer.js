@@ -8,7 +8,7 @@ const WorkdaysContainer = props => {
         dispatch(workdaysLoad.trigger());
 
         return () => {
-            dispatch(workdaysContainerClose.trigger());
+            dispatch(workdaysContainerClose());
         }
     }, [dispatch]);
 

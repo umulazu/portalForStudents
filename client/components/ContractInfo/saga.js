@@ -16,6 +16,7 @@ function* contractsLoadSaga() {
 
         yield put(contractsLoadRoutine.success({ contracts }));
     } catch (error) {
+        console.error(error);
         yield put(contractsLoadRoutine.failure({ error }));
     }
 }

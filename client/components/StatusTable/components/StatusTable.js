@@ -11,6 +11,7 @@ const StatusTable = props => {
     if (!workweeks || !workweeks.length) {
         return null;
     }
+console.log("           status table render");
 
     const headers = [
         { title: "День", className: "status-table__head-cell_name-of-day" },

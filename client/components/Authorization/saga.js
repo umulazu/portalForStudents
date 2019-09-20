@@ -4,8 +4,8 @@ import * as service from "../../api/authorizationService";
 
 export default function* authorizationSaga() {
     yield all([
-        takeLatest(loginRoutine, loginSaga),
-        takeLatest(logoutRoutine, logoutSaga),
+        takeLatest(loginRoutine.TRIGGER, loginSaga),
+        takeLatest(logoutRoutine.TRIGGER, logoutSaga),
     ]);
 }
 
@@ -19,6 +19,7 @@ function* loginSaga(action) {
             name
         }));
     } catch (error) {
+        console.error(error);
         yield put(loginRoutine.failure({ error }));
     }
 }
@@ -28,6 +29,7 @@ function* logoutSaga() {
         yield call(service.logout);
         yield put(logoutRoutine.success());
     } catch (error) {
+        console.error(error);
         yield put(logoutRoutine.failure({ error }));
     }
 }
