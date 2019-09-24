@@ -7,12 +7,9 @@ import RestForCurrentDay from "./RestForCurrentDay";
 import * as rootSelectors from "../../../rootSelectors";
 import getLastStartDiffNow from "../../../utilities/getLastStartDiffNow";
 import moment from "moment";
-import { getWorkStats } from "../utulities";
 
 const CurrentWorkTime = ({ className, classModifier }) => {
-    const workdays = useSelector(rootSelectors.getWorkdays);
-    const normOfMonth = useSelector(selectors.getNormOfMonth);
-    const { realTimeMinutes, restOfTimeMinutes } = getWorkStats(workdays, normOfMonth);
+    const { realTimeMinutes, restOfTimeMinutes } = useSelector(selectors.getWorkStats);
     const { lastFullTime, lastStartTimestamp } = useSelector(rootSelectors.getCurrentDayInfo);
     const lastStartDiffNow = lastStartTimestamp && getLastStartDiffNow(lastStartTimestamp);
     const [currentMinutes, setCurrentMinutes] = useState(

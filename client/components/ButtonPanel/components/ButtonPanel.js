@@ -23,7 +23,7 @@ const ButtonPanel = () => {
 
     useEffect(() => {
         authorized && dispatch(loadCurrentDayRoutine.trigger());
-    });
+    }, [authorized, dispatch]);
 
     if (!authorized) {
         return null;

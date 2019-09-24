@@ -47,8 +47,8 @@ const newWorkdays = (workdays, currentDay) => {
     const lastWorkDay = workdays[workdays.length - 1];
     const lastWorkDate = moment(lastWorkDay && lastWorkDay.startTime).format("YYYYMMMMD");
     const currentDate = moment(currentDay.startTime).format("YYYYMMMMD");
-    if (lastWorkDate === currentDate) {
-        return [...workdays.slice(0, -1), currentDay];
+    if (lastWorkDay && lastWorkDate === currentDate) {
+        return workdays;
     } else {
         return [...workdays, currentDay];
     }

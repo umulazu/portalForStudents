@@ -43,11 +43,17 @@ function getProps(dayConfig) {
     const workday = workweek.daysOfTheWeek[0];
     const key = workday._id;
     const dayRowClasses = classNames["status-table__day-row"];
+    const fullTime = workday.fullTime;
+    const realTime = workday.realTime;
+    const timestamps = workday.timestamps;
 
     return {
         workday,
         dayRowClasses,
         key,
+        fullTime,
+        realTime,
+        timestamps
     };
 }
 
@@ -116,11 +122,18 @@ describe("DayRow Component", () => {
         const fullTime = "10:03",
             realTime = "10:00";
 
-        rootSelectors.isStarted.mockReturnValue(false);
         const props = getProps({
             fullTime,
-            realTime,
+            realTime
         });
+
+        rootSelectors.isStarted.mockReturnValue(false);
+        rootSelectors.getCurrentDay.mockReturnValue({
+            fullTime: props.fullTime,
+            realTime: props.realTime,
+            timestamps: props.timestamps
+        });
+
         const testableDayRow = new TestableDayRow(props);
         testableDayRow.assertCurrentFullTimeCellDoesNotExist();
         testableDayRow.assertCurrentRealTimeCellDoesNotExist();
@@ -134,15 +147,21 @@ describe("DayRow Component", () => {
             fullTime = "10:03",
             realTime = "10:00";
 
+        const props = getProps({
+            startTime,
+            fullTime,
+            realTime
+        });
+
         rootSelectors.isStarted.mockReturnValue(true);
         rootSelectors.getCurrentDayInfo.mockReturnValue({
             lastFullTime: fullTime,
             lastStartTimestamp: "10:00"
         });
-        const props = getProps({
-            startTime,
-            fullTime,
-            realTime
+        rootSelectors.getCurrentDay.mockReturnValue({
+            fullTime: props.fullTime,
+            realTime: props.realTime,
+            timestamps: props.timestamps
         });
 
         const testableDayRow = new TestableDayRow(props);

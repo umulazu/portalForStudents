@@ -1,54 +1,11 @@
 import moment from "moment";
-import { accumulateRealTime, getWorkStats } from "../../../../client/components/WorkStats/utulities";
+import {
+    accumulateRealTime,
+    getCountOfLabourDays,
+    staticDataHandler
+} from "../../../../client/components/WorkStats/utilities";
 
-describe("getWorkStats selector", () => {
-    it("should return modified data", () => {
-        const normOfMonth = 126;
-        const workdays = [
-            {
-                finishTime: "2019-07-02T20:27:50.803Z",
-                fullTime: "10:03",
-                nameOfTheDay: "Вторник",
-                numberOfTheDay: 2,
-                numberOfTheWeek: 1,
-                realTime: "10:00",
-                startTime: "2019-07-02T20:24:46.168Z",
-                timestamps: [
-                    {
-                        startTime: "13:24",
-                        finishTime: "23:27",
-                    },
-                ],
-                _id: "red2019July2",
-            },
-            {
-                finishTime: "2019-07-03T18:20:50.803Z",
-                fullTime: "8:00",
-                nameOfTheDay: "Среда",
-                numberOfTheDay: 3,
-                numberOfTheWeek: 1,
-                realTime: "8:00",
-                startTime: "2019-07-03T10:24:46.168Z",
-                timestamps: [
-                    {
-                        startTime: "13:24",
-                        finishTime: "21:27",
-                    },
-                ],
-                _id: "red2019July3",
-            }
-        ];
-
-        const result = getWorkStats(workdays, normOfMonth);
-
-        const expectedResult = {
-            realTimeMinutes: 18 * 60,
-            restOfTimeMinutes: normOfMonth * 60 - 18 * 60
-        };
-
-        expect(result).toStrictEqual(expectedResult);
-    });
-});
+// jest.mock("../../../../client/components/WorkStats/utilities");
 
 describe("accumulateRealTime auxiliary function", () => {
     it("should return real time of yesterday ", () => {
@@ -64,8 +21,14 @@ describe("accumulateRealTime auxiliary function", () => {
             startTime: yesterday.utc().format(),
         };
 
-        const sumOf1DayAndEmptyMoment = accumulateRealTime(moment.duration(0), workday1);
-        const sumOf2Days = accumulateRealTime(sumOf1DayAndEmptyMoment, workday2);
+        const sumOf1DayAndEmptyMoment = accumulateRealTime(
+            moment.duration(0),
+            workday1
+        );
+        const sumOf2Days = accumulateRealTime(
+            sumOf1DayAndEmptyMoment,
+            workday2
+        );
 
         const expectedResult = moment.duration("10:00");
 
@@ -90,11 +53,19 @@ describe("accumulateRealTime auxiliary function", () => {
             startTime: twoDaysAgo.utc().format(),
         };
 
-        const sumOf1DayAndEmptyMoment = accumulateRealTime(moment.duration(0), workday1);
-        const sumOf2Days = accumulateRealTime(sumOf1DayAndEmptyMoment, workday2);
+        const sumOf1DayAndEmptyMoment = accumulateRealTime(
+            moment.duration(0),
+            workday1
+        );
+        const sumOf2Days = accumulateRealTime(
+            sumOf1DayAndEmptyMoment,
+            workday2
+        );
         const sumOf3Days = accumulateRealTime(sumOf2Days, workday3);
 
-        const expectedResult = moment.duration("10:00").add(moment.duration("15:00"));
+        const expectedResult = moment
+            .duration("10:00")
+            .add(moment.duration("15:00"));
 
         expect(sumOf3Days.asMinutes()).toBe(expectedResult.asMinutes());
     });
@@ -107,10 +78,100 @@ describe("accumulateRealTime auxiliary function", () => {
             startTime: today.utc().format(),
         };
 
-        const sumOf1DayAndEmptyMoment = accumulateRealTime(moment.duration(0), workday1);
+        const sumOf1DayAndEmptyMoment = accumulateRealTime(
+            moment.duration(0),
+            workday1
+        );
 
         const expectedResult = moment.duration(0);
 
-        expect(sumOf1DayAndEmptyMoment.asMinutes()).toBe(expectedResult.asMinutes());
+        expect(sumOf1DayAndEmptyMoment.asMinutes()).toBe(
+            expectedResult.asMinutes()
+        );
     });
 });
+
+describe("getCountOfLabourDays auxiliary function", () => {
+    it("should return count of weekdays of period", () => {
+        const firstDayOfPeriod = moment("2019-11-01");
+        const lastDayOfPeriod = moment("2019-12-01");
+        const specialDays = {
+            holidays: [],
+            postponedDays: [],
+        };
+
+        const expectedResult = 21;
+
+        expect(
+            getCountOfLabourDays(firstDayOfPeriod, lastDayOfPeriod, specialDays)
+        ).toBe(expectedResult);
+    });
+
+    it("should return count of weekdays and postponed days of period", () => {
+        const firstDayOfPeriod = moment("2019-11-01");
+        const lastDayOfPeriod = moment("2019-12-01");
+        const specialDays = {
+            holidays: [],
+            postponedDays: ["2019-11-09"],
+        };
+
+        const expectedResult = 22;
+
+        expect(
+            getCountOfLabourDays(firstDayOfPeriod, lastDayOfPeriod, specialDays)
+        ).toBe(expectedResult);
+    });
+
+    it("should return count of weekdays minus holidays", () => {
+        const firstDayOfPeriod = moment("2019-11-01");
+        const lastDayOfPeriod = moment("2019-12-01");
+        const specialDays = {
+            holidays: ["2019-11-04", "2019-11-05"],
+            postponedDays: [],
+        };
+
+        const expectedResult = 19;
+
+        expect(
+            getCountOfLabourDays(firstDayOfPeriod, lastDayOfPeriod, specialDays)
+        ).toBe(expectedResult);
+    });
+
+    it("should return count of weekdays and postponed days minus holidays", () => {
+        const firstDayOfPeriod = moment("2019-11-01");
+        const lastDayOfPeriod = moment("2019-12-01");
+        const specialDays = {
+            holidays: ["2019-11-04", "2019-11-05"],
+            postponedDays: ["2019-11-09"],
+        };
+
+        const expectedResult = 20;
+
+        expect(
+            getCountOfLabourDays(firstDayOfPeriod, lastDayOfPeriod, specialDays)
+        ).toBe(expectedResult);
+    });
+});
+
+// describe("staticDataHandler auxiliary function", () => {
+//     it("should return count of weekdays of period", () => {
+//         const firstWorkdayOfMonth = moment("2019-11-01");
+//         const specialDays = {
+//             holidays: [],
+//             postponedDays: []
+//         };
+//         const hourPerDay = 4;
+//
+//         getCountOfLabourDays.mockReturnValueOnce(21);
+//         getCountOfLabourDays.mockReturnValueOnce(15);
+//
+//         const expectedNormOfMonth = 84;
+//         const expectedCountOfRestLabourDays = 15;
+//
+//         const {
+//             resultCountOfRestLabourDays,
+//             resultExpectedNormOfMonth
+//         } = staticDataHandler(firstWorkdayOfMonth, specialDays, hourPerDay);
+//         expect(resultCountOfRestLabourDays).toBe(expectedCountOfRestLabourDays);
+//     });
+// });

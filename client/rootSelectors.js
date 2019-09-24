@@ -14,7 +14,7 @@ export const isStarted = state => {
     }
 };
 
-const getCurrentDay = state => state.buttonPanel.currentDay;
+export const getCurrentDay = state => state.buttonPanel.currentDay;
 
 export const getCurrentDayInfo = createSelector(
     [getCurrentDay],

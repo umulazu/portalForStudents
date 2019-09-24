@@ -6,16 +6,11 @@ import * as rootSelectors from "../../../rootSelectors";
 import workTimeFormat from "../../../utilities/workTimeFormat";
 import useInterval from "../../../hooks/useInterval";
 import getLastStartDiffNow from "../../../utilities/getLastStartDiffNow";
-import { getWorkStats } from "../utulities";
 import getClassNames from "../../../utilities/getClassnames";
 
 const RestForCurrentDay = ({ className, classModifier }) => {
-    const workdays = useSelector(rootSelectors.getWorkdays);
-    const normOfMonth = useSelector(selectors.getNormOfMonth);
-    const { restOfTimeMinutes } = getWorkStats(workdays, normOfMonth);
-    const countOfRestLabourDays = useSelector(
-        selectors.getCountOfRestLabourDays
-    );
+    const { restOfTimeMinutes } = useSelector(selectors.getWorkStats);
+    const { countOfRestLabourDays } = useSelector(selectors.getStaticData);
 
     const { lastFullTime, lastStartTimestamp } = useSelector(rootSelectors.getCurrentDayInfo);
     const lastStartDiffNow = lastStartTimestamp && getLastStartDiffNow(lastStartTimestamp);

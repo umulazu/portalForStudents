@@ -5,10 +5,6 @@ import {
     finishRoutine,
     loadCurrentDayRoutine,
 } from "./actions";
-import {
-    workdaysLoad,
-} from "../WorkdaysContainer/actions";
-import moment from "moment";
 import * as authorization from "../Authorization/actions";
 
 const initialState = {
@@ -54,11 +50,6 @@ const reducer = handleActions(
             ...state,
         }),
 
-        [workdaysLoad.SUCCESS]: (state, { payload }) => ({
-            ...state,
-            currentDay: getLastDayFromWorkdays(payload.workdays),
-        }),
-
         [authorization.logoutRoutine.SUCCESS]: state => ({
             ...state,
             currentDay: null,
@@ -68,17 +59,3 @@ const reducer = handleActions(
 );
 
 export default reducer;
-
-const getLastDayFromWorkdays = (workdays) => {
-    const lastWorkday = workdays[workdays.length - 1];
-    if (!lastWorkday) {
-        return null;
-    }
-    const lastWorkDate = moment(lastWorkday.startTime).format("YYYYMMMMD");
-    const currentDate = moment().format("YYYYMMMMD");
-    if (lastWorkDate === currentDate) {
-        return lastWorkday;
-    } else {
-        return null;
-    }
-};

@@ -2,8 +2,8 @@ import { handleActions } from "redux-actions";
 import { init, statsLoad, statsClose } from "./actions";
 
 const initialState = {
-    normOfMonth: 0,
-    countOfRestLabourDays: 0,
+    specialDays: 0,
+    hoursPerDay: 0,
 };
 
 const reducer = handleActions(
@@ -17,8 +17,8 @@ const reducer = handleActions(
         }),
         [statsLoad.SUCCESS]: (state, { payload }) => ({
             ...state,
-            normOfMonth: payload.normOfMonth,
-            countOfRestLabourDays: payload.countOfRestLabourDays,
+            specialDays: payload.specialDays,
+            hoursPerDay: payload.hoursPerDay,
         }),
         [statsLoad.FAILURE]: state => ({
             ...state,
@@ -26,8 +26,8 @@ const reducer = handleActions(
 
         [statsClose]: state => ({
             ...state,
-            normOfMonth: 0,
-            countOfRestLabourDays: 0,
+            specialDays: 0,
+            hoursPerDay: 0,
         }),
     },
     initialState

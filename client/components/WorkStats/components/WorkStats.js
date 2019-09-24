@@ -3,21 +3,20 @@ import { useSelector, useDispatch } from "react-redux";
 import classNames from "./scss/WorkStats.module.scss";
 import { statsLoad, statsClose } from "../actions";
 import * as selectors from "../selectors";
-import * as rootSelectors from "../../../rootSelectors";
 import getClassNames from "../../../utilities/getClassnames";
 import CurrentWorkTime from "./CurrentWorkTime";
 
 const WorkStats = props => {
     const dispatch = useDispatch();
-    const isStarted = useSelector(rootSelectors.isStarted);
-    const normOfMonth = useSelector(selectors.getNormOfMonth);
+    const { normOfMonth } = useSelector(selectors.getStaticData);
+
     useEffect(() => {
         dispatch(statsLoad.trigger());
 
         return () => {
             dispatch(statsClose());
         }
-    }, [dispatch, isStarted]);
+    }, [dispatch]);
 
     if (!normOfMonth) {
         return null;

@@ -32,14 +32,14 @@ const ContractRows = ({ contracts }) =>
 
         return (
             <tr className={contractClasses} key={contract._id}>
-                {cells.map(cell => {
+                {cells.map((cell, index)=> {
                     const cellClasses = getClassNames({
                         [classNames["cell"]]: true,
                         [classNames[cell.className]]: !!cell.className,
                     });
 
                     return (
-                        <td className={cellClasses} key={cell.data}>
+                        <td className={cellClasses} key={cell.data + "-" +index}>
                             {cell.data}
                         </td>
                     );
