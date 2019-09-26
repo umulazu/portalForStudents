@@ -31,21 +31,21 @@ it('should increment value every minute by advancing timers', () => {
     const { container } = render(<TimerComponent initialState={initialState}/>);
     const span = container.firstChild;
     const spanValue = +span.textContent;
-    console.log(spanValue);
+    // console.log(spanValue);
     expect(spanValue).toBe(0);
 
     // after 1 minute
     jest.advanceTimersByTime(60 * 1000);
     const spanAfter1Minute = container.firstChild;
     const spanAfter1MinuteValue = +spanAfter1Minute.textContent;
-    console.log(spanAfter1MinuteValue);
+    // console.log(spanAfter1MinuteValue);
     expect(spanAfter1MinuteValue).toBe(1);
 
     // after 2 minutes
     jest.advanceTimersByTime(60 * 1000);
     const spanAfter2Minutes = container.firstChild;
     const spanAfter2MinutesValue = +spanAfter2Minutes.textContent;
-    console.log(spanAfter2MinutesValue);
+    // console.log(spanAfter2MinutesValue);
     expect(spanAfter2MinutesValue).toBe(2);
 
     jest.useRealTimers();

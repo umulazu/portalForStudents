@@ -31,34 +31,3 @@ export const getCountOfLabourDays = (
     }
     return countOfLabourDays;
 };
-
-export const staticDataHandler = (firstWorkdayOfMonth, specialDays, hoursPerDay) => {
-    let countOfRestLabourDays = 0;
-    let normOfMonth = 0;
-
-    if (firstWorkdayOfMonth && specialDays && hoursPerDay) {
-        const firstDayOfMonth = moment(firstWorkdayOfMonth)
-            .startOf("month")
-            .add(3, "hours");
-        const firstDayOfNextMonth = moment(firstWorkdayOfMonth)
-            .endOf("month")
-            .add(3, "hours");
-        const countOfLabourDays = getCountOfLabourDays(
-            firstDayOfMonth,
-            firstDayOfNextMonth,
-            specialDays
-        );
-        normOfMonth = countOfLabourDays * hoursPerDay;
-
-        countOfRestLabourDays = getCountOfLabourDays(
-            moment(),
-            firstDayOfNextMonth,
-            specialDays
-        );
-    }
-
-    return {
-        normOfMonth,
-        countOfRestLabourDays,
-    };
-};

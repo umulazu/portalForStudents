@@ -1,4 +1,6 @@
-import { getWorkStats } from "../../../../client/components/WorkStats/selectors";
+import { getWorkStats, staticDataHandler } from "../../../../client/components/WorkStats/selectors";
+import moment from "moment";
+import * as utilities from "../../../../client/components/WorkStats/utilities";
 
 describe("getWorkStats selector", () => {
     it("should return workweeks from workdays", () => {
@@ -46,5 +48,33 @@ describe("getWorkStats selector", () => {
         };
 
         expect(result).toStrictEqual(expectedResult);
+    });
+});
+
+describe("staticDataHandler auxiliary function", () => {
+    it("should return count of weekdays of period and norm of month", () => {
+        const firstWorkdayOfMonth = moment("2019-11-01");
+        const specialDays = {
+            holidays: [],
+            postponedDays: []
+        };
+        const hourPerDay = 4;
+
+        jest.spyOn(utilities, "getCountOfLabourDays").mockImplementationOnce(() => {
+            return 21;
+        }).mockImplementationOnce(() => {
+            return 15;
+        });
+
+        const expectedNormOfMonth = 84;
+        const expectedCountOfRestLabourDays = 15;
+
+        const {
+            normOfMonth,
+            countOfRestLabourDays,
+        } = staticDataHandler(firstWorkdayOfMonth, specialDays, hourPerDay);
+
+        expect(normOfMonth).toBe(expectedNormOfMonth);
+        expect(countOfRestLabourDays).toBe(expectedCountOfRestLabourDays);
     });
 });

@@ -1,11 +1,8 @@
 import moment from "moment";
 import {
     accumulateRealTime,
-    getCountOfLabourDays,
-    staticDataHandler
+    getCountOfLabourDays
 } from "../../../../client/components/WorkStats/utilities";
-
-// jest.mock("../../../../client/components/WorkStats/utilities");
 
 describe("accumulateRealTime auxiliary function", () => {
     it("should return real time of yesterday ", () => {
@@ -152,26 +149,3 @@ describe("getCountOfLabourDays auxiliary function", () => {
         ).toBe(expectedResult);
     });
 });
-
-// describe("staticDataHandler auxiliary function", () => {
-//     it("should return count of weekdays of period", () => {
-//         const firstWorkdayOfMonth = moment("2019-11-01");
-//         const specialDays = {
-//             holidays: [],
-//             postponedDays: []
-//         };
-//         const hourPerDay = 4;
-//
-//         getCountOfLabourDays.mockReturnValueOnce(21);
-//         getCountOfLabourDays.mockReturnValueOnce(15);
-//
-//         const expectedNormOfMonth = 84;
-//         const expectedCountOfRestLabourDays = 15;
-//
-//         const {
-//             resultCountOfRestLabourDays,
-//             resultExpectedNormOfMonth
-//         } = staticDataHandler(firstWorkdayOfMonth, specialDays, hourPerDay);
-//         expect(resultCountOfRestLabourDays).toBe(expectedCountOfRestLabourDays);
-//     });
-// });
