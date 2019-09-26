@@ -9,6 +9,7 @@
     "start:client": "webpack-dev-server --progress --config .\\webpack\\development.config.js --watch --hotOnly",
     "start:server": "nodemon --exec \"babel-node .\\server\\index.js --mode=development\" -w .\\server",
     "init:all": "node .\\npm_scripts\\createMongodbDirectory && node .\\npm_scripts\\mongodConfig && node .\\npm_scripts\\initMongodb",
+    "create-special-days-collection" : "node -r esm .\\server\\calendar\\parserInvoke",
     "test": "jest"
   },
   "jest": {

@@ -45,6 +45,77 @@ const authorizationConfig = {
 
 module.exports = authorizationConfig
 ```
-`allowedLogins` _(array, default: empty)_ - login list for users allowed to register and login. If empty, all users are allowed to register and login.
+`allowedLogins` _(array, default: empty)_ - login list for users allowed to register and login. 
+If empty, all users are allowed to register and login.
 
 `sessionSecret` _(string, default: "secret")_ - secret session key used for authorization system.
+
+### Data examples
+`workdays` collection:
+```
+{
+    "_id" : "SergeiIv2019September26",
+    "student" : "SergeiIv",
+    "times" : [ 
+        {
+            "_id" : ObjectId("5d8c73cf46876f31a07a6c67"),
+            "startTime" : ISODate("2019-09-26T08:16:15.377Z")
+        }
+    ]
+}
+```
+
+`students` collection:
+```
+{
+    "_id" : "AndreyRi",
+    "workdays" : [
+        "SergeiIv2019September23", 
+        "SergeiIv2019September24", 
+        "SergeiIv2019September25", 
+        "SergeiIv2019September26"
+    ],
+    "contracts" : [],
+    "name" : "Сергей Иванов",
+    "birthday" : ISODate("2000-01-01T06:02:22.111Z"),
+}
+```
+
+`contracts` collection:
+```
+{
+    "_id" : "SergeiIv1",
+    "status" : "expired",
+    "startingDay" : ISODate("2019-04-16T13:00:26.426Z"),
+    "endingDay" : ISODate("2019-06-15T13:00:26.426Z"),
+    "hoursPerWeek" : "20",
+    "mentor" : "Иван Сергеев",
+    "task" : "Портал для студентов",
+    "student" : [ 
+        "SergeiIv"
+    ],
+}
+
+{
+    "_id" : "SergeiIv2",
+    "status" : "active",
+    "startingDay" : ISODate("2019-07-16T13:00:26.426Z"),
+    "endingDay" : ISODate("2019-09-29T13:00:26.426Z"),
+    "hoursPerWeek" : "30",
+    "mentor" : "Иван Сергеев",
+    "task" : "Портал для студентов",
+    "student" : [ 
+        "SergeiIv"
+    ],
+}
+```
+
+### Creating Holidays, Postponed collections
+To create 2 collections: `holidays` and `postponedDays` at first configuring there is npm command: `create-special-days-collection`.  
+
+File `_{project directory}_/server/calendar/russia.ics` should exist.  
+Actual `.ics` could be downloaded from `https://www.officeholidays.com/ics/russia` for several years.  
+One need to add the same logic to postponedDays.  
+
+All this logic should be moved into admin rights.
+

@@ -14,5 +14,6 @@ export const parseHolidaysCalendar = path => {
         // console.log(holidays);
     } catch (err) {
         console.error(err);
+        return [];
     }
 };

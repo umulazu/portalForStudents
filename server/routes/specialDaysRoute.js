@@ -11,7 +11,7 @@ const router = express.Router();
 
 const path = "../calendar/russia.ics";
 
-// for admin
+// todo: for admin
 // client/server: where does one have to give calendar??
 // here we could get req.body.calendar .ics -> invoke parser -> addHolidays   OR   get path  to .ics -> - - - - -
 router.route("/setHolidays").post((req, res) => {
