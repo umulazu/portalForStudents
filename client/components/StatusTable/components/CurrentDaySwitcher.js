@@ -8,9 +8,18 @@ import classNames from "./scss/DayRow.module.scss";
 
 const CurrentDaySwitcher = ({ timestampClasses }) => {
     const isStarted = useSelector(rootSelectors.isStarted);
-    const { fullTime, realTime, timestamps } = useSelector(
-        rootSelectors.getCurrentDay
+    // todo: last adding
+    const currentDay =  useSelector(
+        rootSelectors.getCurrentDayInfo
     );
+    // if (!currentDay) {
+    //     return null;
+    // }
+
+    const { lastFullTime, realTime, timestamps } = currentDay;
+    if (!timestamps) {
+        return null;
+    }
 
     return (
         isStarted ? (
@@ -33,7 +42,7 @@ const CurrentDaySwitcher = ({ timestampClasses }) => {
         </>
     ) : (
         <PassiveDay
-            fullTime={fullTime}
+            fullTime={lastFullTime}
             realTime={realTime}
             timestamps={timestamps}
             timestampClasses={timestampClasses}

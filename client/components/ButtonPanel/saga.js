@@ -2,6 +2,7 @@ import { all, takeLatest, call, put, select } from "redux-saga/effects";
 import { startRoutine, finishRoutine, loadCurrentDayRoutine } from "./actions";
 import { start, finish, getCurrentDay } from "../../api/timeService";
 import { getStudentId } from "../../rootSelectors";
+import moment from "moment";
 
 export default function* buttonPanelSaga() {
     yield all([
@@ -13,10 +14,10 @@ export default function* buttonPanelSaga() {
 
 function* finishSaga() {
     try {
-        const _id = yield select(getStudentId);
+        const id = yield select(getStudentId);
 
         yield put(finishRoutine.request());
-        const currentDay = yield call(finish, _id);
+        const currentDay = yield call(finish, id);
 
         yield put(finishRoutine.success({ currentDay }));
     } catch (error) {
@@ -27,10 +28,10 @@ function* finishSaga() {
 
 function* startSaga() {
     try {
-        const _id = yield select(getStudentId);
+        const id = yield select(getStudentId);
 
         yield put(startRoutine.request());
-        const currentDay = yield call(start, _id);
+        const currentDay = yield call(start, id);
 
         yield put(startRoutine.success({ currentDay }));
     } catch (error) {
@@ -41,11 +42,12 @@ function* startSaga() {
 
 function* loadCurrentDaySaga() {
     try {
-        const _id = yield select(getStudentId);
+        const id = yield select(getStudentId);
 
         yield put(loadCurrentDayRoutine.request());
 
-        const currentDay = yield call(getCurrentDay, _id);
+        const currentDay = yield call(getCurrentDay, id);
+
         yield put(loadCurrentDayRoutine.success({ currentDay }));
     } catch (error) {
         console.error(error);

@@ -35,5 +35,5 @@ export default CurrentFullTimeCell;
 const getCurrentFullTime = (lastFullTime, currentWorkTimeMinutes) => {
     return moment(lastFullTime, "HH:mm")
         .add(currentWorkTimeMinutes, "minutes")
-        .format("H:mm");
+        .format("HH:mm");
 };

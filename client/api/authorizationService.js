@@ -1,26 +1,17 @@
-export const login = (_id, password) => {
-    return fetch("/login", {
+import fetchWithToaster from "../utilities/connectFetchWithToaster";
+
+export const login = (id, password) =>
+    fetchWithToaster("/api/accounts/login", {
         method: "POST",
         credentials: "include",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ _id, password }),
-    }).then(response => response.json().then(data => ({
-        id: data._id,
-        name: data.name
-    })));
-};
+        body: JSON.stringify({ UserName: id, password }),
+    });
 
-export const logout = () => {
-    return fetch("/logout", {
+export const logout = () =>
+    fetchWithToaster("/api/accounts/logout", {
         method: "GET",
         credentials: "include",
-    }).then(response => {
-        if (response.status === 200) {
-            return true;
-        } else {
-            throw response.status;
-        }
     });
-};

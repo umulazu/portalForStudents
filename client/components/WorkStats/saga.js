@@ -15,12 +15,12 @@ function* startSaga() {
 
         const specialDays = yield call(getSpecialDays);
 
-        const _id = yield select(getStudentId);
-        const hoursPerDay = yield call(getHoursPerDay, _id);
+        const id = yield select(getStudentId);
+        const hoursPerDay = yield call(getHoursPerDay, id);
 
         yield put(statsLoad.success({ specialDays, hoursPerDay }));
     } catch (error) {
-        console.error(error);
+        console.log(error);
         yield put(statsLoad.failure());
     }
 }

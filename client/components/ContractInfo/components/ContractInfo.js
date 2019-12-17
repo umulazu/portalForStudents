@@ -15,7 +15,7 @@ const ContractInfo = ({ className }) => {
         dispatch(contractsLoadRoutine.trigger());
         return () => {
             dispatch(contractsCloseRoutine());
-        }
+        };
     }, [dispatch]);
 
     const headers = [
@@ -50,7 +50,7 @@ const ContractInfo = ({ className }) => {
             </thead>
 
             <tbody>
-                <ContractRows contracts={contracts} />
+                {contracts.length ? <ContractRows contracts={contracts} /> : null}
             </tbody>
         </table>
     );

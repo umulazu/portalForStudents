@@ -1,0 +1,6 @@
+//@import "../../../../node_modules/@material/snackbar/mdc-snackbar";
+
+.app-snackbar {
+  @include mdc-snackbar;
+}
+

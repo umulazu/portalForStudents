@@ -9,7 +9,7 @@
     "start:client": "webpack-dev-server --progress --config .\\webpack\\development.config.js --watch --hotOnly",
     "start:server": "nodemon --exec \"babel-node .\\server\\index.js --mode=development\" -w .\\server",
     "init:all": "node .\\npm_scripts\\createMongodbDirectory && node .\\npm_scripts\\mongodConfig && node .\\npm_scripts\\initMongodb",
-    "create-special-days-collection" : "node -r esm .\\server\\calendar\\parserInvoke",
+    "create-special-days-collection": "node -r esm .\\server\\calendar\\parserInvoke",
     "test": "jest"
   },
   "jest": {
@@ -29,8 +29,9 @@
   "homepage": "https://github.com/Zhuchenko/portalForStudents#readme",
   "dependencies": {
     "@babel/polyfill": "7.0.0",
-    "@material-ui/core": "3.1.0",
+    "@material-ui/core": "^3.1.0",
     "@material-ui/icons": "3.0.1",
+    "@testing-library/react-hooks": "latest",
     "body-parser": "1.18.3",
     "cookie-parser": "1.4.3",
     "ejs": "2.6.1",
@@ -69,9 +70,9 @@
     "redux-saga": "0.16.0",
     "redux-saga-routines": "^3.2.0",
     "styled-components": "3.4.8",
+    "toastr": "^2.1.4",
     "typeface-roboto": "0.0.54",
-    "yaml-generator": "^1.0.4",
-    "@testing-library/react-hooks": "latest"
+    "yaml-generator": "^1.0.4"
   },
   "devDependencies": {
     "@babel/cli": "7.1.0",
@@ -81,6 +82,7 @@
     "@babel/plugin-proposal-object-rest-spread": "7.0.0",
     "@babel/plugin-syntax-dynamic-import": "7.0.0",
     "@babel/plugin-transform-react-jsx": "7.0.0",
+    "@fortawesome/fontawesome-free": "^5.12.0",
     "@babel/preset-env": "^7.5.5",
     "@babel/preset-react": "^7.0.0",
     "@babel/register": "^7.5.5",

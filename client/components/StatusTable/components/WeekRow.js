@@ -26,7 +26,7 @@ const WeekRow = ({ workweek, weekRowClasses, dayRowClasses }) => {
                       <DayRow
                           workday={workday}
                           dayRowClasses={dayRowClasses}
-                          key={workday._id}
+                          key={workday.id}
                           data-test-component="DayRow"
                       />
                   ))}

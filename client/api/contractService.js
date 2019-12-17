@@ -1,25 +1,13 @@
-export const getHoursPerDay = _id => {
-    return fetch("/hoursPerDay", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ _id }),
-    }).then(response => {
-        return response.json();
-    });
-};
+import fetchWithToaster from "../utilities/connectFetchWithToaster";
 
-export const getContractsById = _id => {
-    return fetch("/getContracts", {
-        method: "POST",
+export const getHoursPerDay = () =>
+    fetchWithToaster("/api/contracts/getHoursPerDay", {
+        method: "GET",
         credentials: "include",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ _id }),
-    }).then(response => {
-        return response.json();
     });
-};
+
+export const getContractsById = () =>
+    fetchWithToaster("/api/contracts/getContracts", {
+        method: "GET",
+        credentials: "include",
+    });

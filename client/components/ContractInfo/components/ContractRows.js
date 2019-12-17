@@ -11,7 +11,7 @@ const ContractRows = ({ contracts }) =>
         });
 
         const {
-            _id,
+            id,
             status,
             hoursPerWeek,
             startingDay,
@@ -21,7 +21,7 @@ const ContractRows = ({ contracts }) =>
         } = contract;
 
         const cells = [
-            { data: _id, className: "cell__contract-id" },
+            { data: id, className: "cell__contract-id" },
             { data: status },
             { data: hoursPerWeek },
             { data: moment(startingDay).format("YYYY-MM-DD") },
@@ -31,7 +31,7 @@ const ContractRows = ({ contracts }) =>
         ];
 
         return (
-            <tr className={contractClasses} key={contract._id}>
+            <tr className={contractClasses} key={contract.id}>
                 {cells.map((cell, index)=> {
                     const cellClasses = getClassNames({
                         [classNames["cell"]]: true,

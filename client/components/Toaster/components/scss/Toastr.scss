@@ -1,0 +1,24 @@
+@import "../../../../constants/scss/fontawesome";
+@import "~toastr/build/toastr.min.css";
+
+#toast-container > .toast {
+  background-image: none !important;
+}
+
+#toast-container > .toast:before {
+  position: fixed;
+  font-family: "Font Awesome 5 Free";
+  font-size: 24px;
+  line-height: 18px;
+  float: left;
+  color: #ffffff;
+  padding-right: 0.5em;
+  margin: auto 0.5em auto -1.5em;
+}
+
+#toast-container > .toast-warning:before {
+  content: fa-content($fa-var-hand-rock);
+}
+#toast-container > .toast-error:before {
+  content: fa-content($fa-var-times-circle);
+}

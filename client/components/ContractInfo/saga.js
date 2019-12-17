@@ -9,10 +9,10 @@ export default function* contractInfoSaga() {
 
 function* contractsLoadSaga() {
     try {
-        const _id = yield select(getStudentId);
+        const id = yield select(getStudentId);
 
         yield put(contractsLoadRoutine.request());
-        const contracts = yield call(getContractsById, _id);
+        const contracts = yield call(getContractsById, id);
 
         yield put(contractsLoadRoutine.success({ contracts }));
     } catch (error) {

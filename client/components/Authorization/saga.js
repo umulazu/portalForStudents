@@ -12,15 +12,15 @@ export default function* authorizationSaga() {
 function* loginSaga(action) {
     try {
         const { login, password } = action.payload;
-        const {id, name} = yield call(service.login, login, password);
+        const {userName, studentName} = yield call(service.login, login, password);
 
         yield put(loginRoutine.success({
-            login: id,
-            name
+            login: userName,
+            name: studentName
         }));
     } catch (error) {
-        console.error(error);
-        yield put(loginRoutine.failure({ error }));
+        console.log(error);
+        yield put(loginRoutine.failure(error));
     }
 }
 

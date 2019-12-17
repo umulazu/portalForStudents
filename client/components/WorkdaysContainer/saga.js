@@ -10,9 +10,9 @@ export default function* statusTableSaga() {
 
 function* loadStatusTableSaga() {
     try {
-        const _id = yield select(getStudentId);
+        const id = yield select(getStudentId);
         yield put(workdaysLoad.request());
-        const workdays = yield call(getDetailedWorkdaysForMonth, _id);
+        const workdays = yield call(getDetailedWorkdaysForMonth, id);
 
         yield put(workdaysLoad.success({ workdays }));
     } catch (error) {

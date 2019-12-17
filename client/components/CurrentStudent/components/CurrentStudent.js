@@ -11,9 +11,7 @@ import { loadStudentRoutine } from "../actions";
 
 const CurrentStudent = ({ className }) => {
     const dispatch = useDispatch();
-    // const n = useSelector(state => {
-    //     console.log(state);
-    // });
+
     const authorized = useSelector(selectors.isAuthorized);
     const login = useSelector(rootSelectors.getStudentId);
 

@@ -1,32 +1,25 @@
-export const start = _id => {
-    return fetch("/start", {
-        method: "POST",
-        credentials: "include",
-        headers: {
-            "Content-Type": "application/json",
-        },
-        body: JSON.stringify({ _id }),
-    }).then(response => response.json());
-};
+import fetchWithToaster from "../utilities/connectFetchWithToaster";
 
-export const finish = _id => {
-    return fetch("/finish", {
+export const start = () =>
+    fetchWithToaster("/api/workdays/addStartTime", {
         method: "POST",
         credentials: "include",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ _id }),
-    }).then(response => response.json());
-};
+    });
 
-export const getCurrentDay = _id => {
-    return fetch("/currentDay", {
+export const finish = () =>
+    fetchWithToaster("/api/workdays/addFinishTime", {
         method: "POST",
         credentials: "include",
         headers: {
             "Content-Type": "application/json",
         },
-        body: JSON.stringify({ _id }),
-    }).then(response => response.json());
-};
+    });
+
+export const getCurrentDay = () =>
+    fetchWithToaster("/api/workdays/getCurrentDay", {
+        method: "GET",
+        credentials: "include",
+    });

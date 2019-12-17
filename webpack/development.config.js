@@ -1,6 +1,6 @@
 const path = require('path');
 const webpack = require('webpack');
-const serverConfig = require('../server/development.server.config');
+const serverConfig = require('./development.server.config');
 const autoprefixer = require('autoprefixer');
 
 const root = path.join(__dirname, '..');
@@ -13,7 +13,7 @@ const CSSModuleLoader = {
         localIdentName: '[local]__[hash:base64:5]',
         minimize: true
     }
-}
+};
 
 const CSSLoader = {
     loader: 'css-loader',
@@ -22,7 +22,7 @@ const CSSLoader = {
         sourceMap: true,
         minimize: true
     }
-}
+};
 
 const postCSSLoader = {
     loader: 'postcss-loader',
@@ -33,7 +33,7 @@ const postCSSLoader = {
             autoprefixer()
         ]
     }
-}
+};
 
 module.exports = {
     mode: 'development',
@@ -48,7 +48,6 @@ module.exports = {
 
     output: {
         filename: '[name].js',
-        path: path.join(root, 'dist', 'public', 'assets'),
         publicPath: serverConfig.assetsRoot
     },
 
@@ -66,7 +65,7 @@ module.exports = {
             {
                 test: /\.scss$/,
                 exclude: /\.module\.scss$/,
-                use: ['style-loader', CSSLoader, postCSSLoader, 'sass-loader']
+                use: ['style-loader', CSSLoader, postCSSLoader, 'sass-loader'],
             },
             {
                 test: /\.module\.scss$/,
@@ -78,7 +77,8 @@ module.exports = {
                 ]
             },
             {
-                test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
+                // test: /\.(woff|woff2)(\?v=\d+\.\d+\.\d+)?$/,
+                test: /\.(woff|woff2|ttf|eot|svg)(\?v=\d+\.\d+\.\d+)?$/,
                 loader: 'file-loader',
                 options: {
                     name: 'fonts/[name].[ext]'
@@ -87,22 +87,28 @@ module.exports = {
         ]
     },
 
-    optimization: {
-        noEmitOnErrors: true,
-        splitChunks: {
-            cacheGroups: {
-                vendors: {
-                    test: /[\\/]node_modules\\[*lodash*|react\-dom\-factories]/,
-                    name: 'vendors',
-                    chunks: 'initial'
-                }
-            }
-        }
-    },
+    // optimization: {
+    //     // when error occurs WP doesn't take this module
+    //     noEmitOnErrors: true,
+    //     splitChunks: {
+    //         cacheGroups: {
+    //             vendors: {
+    //                 test: /[\\/]node_modules\\[*lodash*|react\-dom\-factories]/,
+    //                 name: 'vendors',
+    //                 chunks: 'initial'
+    //             }
+    //         }
+    //     }
+    // },
 
     devServer: {
-        contentBase: path.join(root, 'public', 'assets'),
-        publicPath: '/',
+        // contentBase: path.join(root, 'public', 'assets'),
+        contentBase: path.join(root, 'public'),
+        // contentBase: root,
+        // publicPath: '/',
+        // proxy: {
+        //     "/api": "http://localhost:3000"
+        // },
         port: 3001,
         headers: { 'Access-Control-Allow-Origin': '*' },
         watchContentBase: true

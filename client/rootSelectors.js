@@ -17,22 +17,38 @@ export const isStarted = state => {
 export const getCurrentDay = state => state.buttonPanel.currentDay;
 
 export const getCurrentDayInfo = createSelector(
-    [getCurrentDay],
-    currentDay => {
+    [getCurrentDay, getWorkdays],
+    (currentDay, workdays) => {
         if (currentDay) {
-            const { fullTime, timestamps } = currentDay;
+            const lastWorkDay = workdays[workdays.length - 1];
+
+            if (
+                lastWorkDay.timestamps.length > currentDay.timestamps.length ||
+                (lastWorkDay.timestamps.length ===
+                    currentDay.timestamps.length &&
+                    lastWorkDay.finishTime &&
+                    !currentDay.finishTime)
+            ) {
+                currentDay = lastWorkDay;
+            }
+
+            const { fullTime, timestamps, realTime } = currentDay;
             const startTime = timestamps[timestamps.length - 1].finishTime
                 ? null
                 : timestamps[timestamps.length - 1].startTime;
             return {
                 lastFullTime: fullTime,
-                lastStartTimestamp: startTime
-            }
+                lastStartTimestamp: startTime,
+                realTime,
+                timestamps,
+            };
         } else {
             return {
                 lastFullTime: null,
-                lastStartTimestamp: null
-            }
+                lastStartTimestamp: null,
+                realTime: null,
+                timestamps: null,
+            };
         }
     }
 );
