@@ -34,14 +34,14 @@ function getProps(dayConfig) {
                         startTime: "13:24",
                     },
                 ],
-                _id: "red2019July2",
+                id: "red2019July2",
                 ...dayConfig,
             },
         ],
     };
 
     const workday = workweek.daysOfTheWeek[0];
-    const key = workday._id;
+    const key = workday.id;
     const dayRowClasses = classNames["status-table__day-row"];
     const fullTime = workday.fullTime;
     const realTime = workday.realTime;
@@ -156,7 +156,9 @@ describe("DayRow Component", () => {
         rootSelectors.isStarted.mockReturnValue(true);
         rootSelectors.getCurrentDayInfo.mockReturnValue({
             lastFullTime: fullTime,
-            lastStartTimestamp: "10:00"
+            lastStartTimestamp: "10:00",
+            realTime,
+            timestamps: props.timestamps
         });
         rootSelectors.getCurrentDay.mockReturnValue({
             fullTime: props.fullTime,

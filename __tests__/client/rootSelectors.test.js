@@ -59,6 +59,7 @@ describe("getCurrentDayInfo selector", () => {
    it("should return fullTime and lastTimeStamp if currentDay exists and last timestamp isn't finished", () => {
       const startTime = "10:00";
       const fullTime = "6:00";
+      const realTime = "6:00";
       const timestamps = [
           {
              startTime
@@ -68,43 +69,88 @@ describe("getCurrentDayInfo selector", () => {
          buttonPanel: {
             currentDay: {
                fullTime,
-               timestamps
+               timestamps,
+               realTime
             }
+         },
+         workdaysContainer: {
+            workdays: [
+               {
+                  fullTime,
+                  timestamps,
+                  realTime
+               }
+            ]
          }
       };
 
       const result = getCurrentDayInfo(state);
       expect(result).toStrictEqual({
          lastFullTime: fullTime,
-         lastStartTimestamp: startTime
+         lastStartTimestamp: startTime,
+         realTime,
+         timestamps
       });
    });
 
    it("should return fullTime and lastTimeStamp equal to null if currentDay doesn't exist", () => {
       const startTime = null;
       const fullTime = null;
+      const realTime = null;
+      const timestamps = null;
+
       const state = {
-         buttonPanel: { }
+         buttonPanel: { },
+         workdaysContainer: {
+            workdays: []
+         }
       };
 
       const result = getCurrentDayInfo(state);
       expect(result).toStrictEqual({
          lastFullTime: fullTime,
-         lastStartTimestamp: startTime
+         lastStartTimestamp: startTime,
+         realTime,
+         timestamps
       });
    });
 
-   it("should return fullTime and lastTimeStamp equals to null if currentDay exists but last timestamp is finished", () => {
-      const startTime = null;
-      const fullTime = null;
+   it("should return lastTimeStamp equals to null if currentDay exists but last timestamp is finished", () => {
+      const startTime = "10:00";
+      const finishTime = "11:00";
+      const fullTime = "6:00";
+      const realTime = "6:00";
+      const timestamps = [
+         {
+            startTime,
+            finishTime
+         }
+      ];
       const state = {
-         buttonPanel: { }
+         buttonPanel: {
+            currentDay: {
+               fullTime,
+               timestamps,
+               realTime
+            }
+         },
+         workdaysContainer: {
+            workdays: [
+               {
+                  fullTime,
+                  timestamps,
+                  realTime
+               }
+            ]
+         }
       };
 
       const result = getCurrentDayInfo(state);
       expect(result).toStrictEqual({
+         lastStartTimestamp: null,
          lastFullTime: fullTime,
-         lastStartTimestamp: startTime
+         timestamps,
+         realTime
       });
    });
 });

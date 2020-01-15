@@ -34,7 +34,7 @@ describe('WeekRow component', () => {
                             startTime: "13:24",
                         },
                     ],
-                    _id: "red2019July2",
+                    id: "red2019July2",
                 },
             ],
         };

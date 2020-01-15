@@ -8,13 +8,9 @@ import classNames from "./scss/DayRow.module.scss";
 
 const CurrentDaySwitcher = ({ timestampClasses }) => {
     const isStarted = useSelector(rootSelectors.isStarted);
-    // todo: last adding
     const currentDay =  useSelector(
         rootSelectors.getCurrentDayInfo
     );
-    // if (!currentDay) {
-    //     return null;
-    // }
 
     const { lastFullTime, realTime, timestamps } = currentDay;
     if (!timestamps) {

@@ -3,10 +3,10 @@ import workTimeFormat from "../../../client/utilities/workTimeFormat";
 describe("workTimeFormat utility", () => {
     describe("some cases", () => {
         it("0, 0 => 0:00", () => {
-            expect(workTimeFormat(0, 0)).toBe("0:00");
+            expect(workTimeFormat(0, 0)).toBe("00:00");
         });
         it("2, 2 => 2:02", () => {
-            expect(workTimeFormat(2, 2)).toBe("2:02");
+            expect(workTimeFormat(2, 2)).toBe("02:02");
         });
         it("127, 0 => 127:11", () => {
             expect(workTimeFormat(127, 11)).toBe("127:11");
@@ -17,7 +17,7 @@ describe("workTimeFormat utility", () => {
         });
     });
 
-    describe.each([[0, 0],[25, 0], [11, 11], [1, 12], [12 ,1]])(
+    describe.each([[0, 0],[25, 0], [11, 11], [1, 12], [12 ,1], [123, 12]])(
         "regEx matches %i:%i",
         (hours, minutes) => {
             test("return in respective format", () => {
