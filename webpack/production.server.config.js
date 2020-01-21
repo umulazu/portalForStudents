@@ -1,5 +1,6 @@
 const serverConfig = {
-    assetsRoot: "/assets/",
+    // assetsRoot: "/assets/",
+    assetsRoot: "/",
     port: 3000,
     databaseConnectionURL: "mongodb://localhost:27017/PortalForStudents",
     authorization: {

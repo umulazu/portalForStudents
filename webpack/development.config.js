@@ -10,8 +10,8 @@ const CSSModuleLoader = {
     options: {
         modules: true,
         sourceMap: true,
-        localIdentName: '[local]__[hash:base64:5]',
-        minimize: true
+        // localIdentName: '[local]__[hash:base64:5]',
+        // minimize: true
     }
 };
 
@@ -20,7 +20,7 @@ const CSSLoader = {
     options: {
         modules: false,
         sourceMap: true,
-        minimize: true
+        // minimize: true
     }
 };
 
